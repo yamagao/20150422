@@ -97,53 +97,76 @@ $("#searchBy").change(function(){
 require_once 'DatabaseConnection.php';
 
 if($_GET["expertise"] != ""){
-$expertise = $_GET["expertise"];
-//$lastName = $_GET["lastName"];
-//$firstName = $_GET["firstName"];
-$areaOfExpertise = sqlsrv_query( $connection, 'SELECT AreaOfExpertiseID, Name FROM AreaOfExpertise WHERE Name LIKE \'' . $expertise . '%\'');
+	$expertise = $_GET["expertise"];
+	//$lastName = $_GET["lastName"];
+	//$firstName = $_GET["firstName"];
+	$areaOfExpertise = sqlsrv_query( $connection, 'SELECT AreaOfExpertiseID, Name FROM AreaOfExpertise WHERE Name LIKE \'' . $expertise . '%\'');
 
-while($row1 = sqlsrv_fetch_array($areaOfExpertise)) {
-	$areaOfExpertiseID = $row1['AreaOfExpertiseID'];
-	echo('<br>');
-	echo('<p><b>'.$row1['Name'].'</b></p>');
-	
-	/*
-	//Query with PhotoID
-	
-	$fetchExpertDataQuery = 'SELECT e.ExpertID AS ExpertID, e.Prefix AS ExpertPrefix, e.FirstName AS ExpertFirstName, e.MiddleName AS ExpertMiddleName, e.LastName AS ExpertLastName, e.Suffix AS ExpertSuffix, e.Title AS ExpertTitle, e.ProfileDesc AS ExpertProfileDesc, e.Address AS ExpertAddress, c.ContactType AS ExpertContactType, c.ContactDesc AS ExpertContactDesc, c.ContactTimings AS ExpertContactTimings, p.PhotoURL AS ExpertPhoto FROM ExpertBioData e, Expert_AreaOfExpertise ea, Contact c, Photo p WHERE ea.AreaOfExpertiseID='.$areaOfExpertiseID.' AND e.ExpertID=ea.ExpertID AND e.ExpertID=c.ExpertID AND e.ExpertID=p.ExpertID AND p.PhotoID=3';
-	*/
-	
-$fetchExpertDataQuery = 'SELECT e.ExpertID AS ExpertID, e.Prefix AS ExpertPrefix, e.FirstName AS ExpertFirstName, e.MiddleName AS ExpertMiddleName, e.LastName AS ExpertLastName, e.Suffix AS ExpertSuffix, e.Degree AS ExpertDegree, e.Title AS ExpertTitle, e.ProfileDesc AS ExpertProfileDesc, e.AddressLine1 AS ExpertAddress1, e.AddressLine2 AS ExpertAddress2, e.AddressLine3 AS ExpertAddress3, c.ContactType AS ExpertContactType, c.ContactDesc AS ExpertContactDesc, c.ContactTimings AS ExpertContactTimings FROM ExpertBioData e, Expert_AreaOfExpertise ea, Contact c WHERE ea.AreaOfExpertiseID='.$areaOfExpertiseID.' AND e.ExpertID=ea.ExpertID AND e.ExpertID=c.ExpertID';
-	
-	$expertData = sqlsrv_query( $connection, $fetchExpertDataQuery);	
-	$expertFullName = NULL;
-	
-	while($row2 = sqlsrv_fetch_array($expertData)) {
+	while($row1 = sqlsrv_fetch_array($areaOfExpertise)) {
+		$areaOfExpertiseID = $row1['AreaOfExpertiseID'];
+		echo '<br>';
+		echo '<b>'.$row1['Name'].'</b>';
 		
-		$expertID = $row2['ExpertID'];
-		$expertPrefix = $row2['ExpertPrefix'];		
-		$expertFirstName = $row2['ExpertFirstName'];	
-		$expertMiddleName = $row2['ExpertMiddleName'];
-		$expertLastName = $row2['ExpertLastName'];
-		$expertSuffix = $row2['ExpertSuffix'];		
-		$expertTitle = $row2['ExpertTitle'];
-		$expertAddress = $row2['ExpertAddress1'];
-		//$expertPhoto = $row2['ExpertPhoto'];
-		$expertContactType = $row2['ExpertContactType'];
-		$expertContactDesc = $row2['ExpertContactDesc'];
-		$expertContactTimings = $row2['ExpertContactTimings'];
+		/*
+		//Query with PhotoID
 		
-		$newExpertFullName = $expertPrefix.' '.$expertFirstName.' '.$expertMiddleName.' '.$expertLastName.' '.$expertSuffix;
+		$fetchExpertDataQuery = 'SELECT e.ExpertID AS ExpertID, e.Prefix AS ExpertPrefix, e.FirstName AS ExpertFirstName, e.MiddleName AS ExpertMiddleName, e.LastName AS ExpertLastName, e.Suffix AS ExpertSuffix, e.Title AS ExpertTitle, e.ProfileDesc AS ExpertProfileDesc, e.Address AS ExpertAddress, c.ContactType AS ExpertContactType, c.ContactDesc AS ExpertContactDesc, c.ContactTimings AS ExpertContactTimings, p.PhotoURL AS ExpertPhoto FROM ExpertBioData e, Expert_AreaOfExpertise ea, Contact c, Photo p WHERE ea.AreaOfExpertiseID='.$areaOfExpertiseID.' AND e.ExpertID=ea.ExpertID AND e.ExpertID=c.ExpertID AND e.ExpertID=p.ExpertID AND p.PhotoID=3';
+		*/
 		
-		if ($expertFullName != $newExpertFullName) {		
-		  //echo ('<br><br> <a href="IndividualFullProfile.php?expert_id='.$expertID.'"> <img src="'.$expertPhoto.'"> </a> <br> <a href="IndividualFullProfile.php?expert_id='.$expertID.'">'.$newExpertFullName.'</a> <br>'.$expertTitle.'<br>'.$expertAddress);
-  		  echo ('<br><br> <a href="IndividualFullProfile.php?expert_id='.$expertID.'"> <br> <a href="IndividualFullProfile.php?expert_id='.$expertID.'">'.$newExpertFullName.'</a> <br>'.$expertTitle.'<br>'.$expertAddress);
-  		  $expertFullName = $newExpertFullName;
+	$fetchExpertDataQuery = 'SELECT e.ExpertID AS ExpertID, e.Prefix AS ExpertPrefix, e.FirstName AS ExpertFirstName, e.MiddleName AS ExpertMiddleName, e.LastName AS ExpertLastName, e.Suffix AS ExpertSuffix, e.Degree AS ExpertDegree, e.Title AS ExpertTitle, e.ProfileDesc AS ExpertProfileDesc, e.AddressLine1 AS ExpertAddress1, e.AddressLine2 AS ExpertAddress2, e.AddressLine3 AS ExpertAddress3, c.ContactType AS ExpertContactType, c.ContactDesc AS ExpertContactDesc, c.ContactTimings AS ExpertContactTimings FROM ExpertBioData e, Expert_AreaOfExpertise ea, Contact c WHERE ea.AreaOfExpertiseID='.$areaOfExpertiseID.' AND e.ExpertID=ea.ExpertID AND e.ExpertID=c.ExpertID';
+		
+		$expertData = sqlsrv_query( $connection, $fetchExpertDataQuery);	
+		$expertFullName = NULL;
+		
+		while($row2 = sqlsrv_fetch_array($expertData)) {
+			
+			$expertID = $row2['ExpertID'];
+			$expertPrefix = $row2['ExpertPrefix'];		
+			$expertFirstName = $row2['ExpertFirstName'];	
+			$expertMiddleName = $row2['ExpertMiddleName'];
+			$expertLastName = $row2['ExpertLastName'];
+			$expertSuffix = $row2['ExpertSuffix'];		
+			$expertTitle = $row2['ExpertTitle'];
+			$expertAddress = $row2['ExpertAddress1'];
+			//$expertPhoto = $row2['ExpertPhoto'];
+			$expertContactType = $row2['ExpertContactType'];
+			$expertContactDesc = $row2['ExpertContactDesc'];
+			$expertContactTimings = $row2['ExpertContactTimings'];
+			
+			if($expertFirstName == null && $expertLastName == null){
+				continue;
+			}
+			
+			$newExpertFullName = $expertPrefix.' '.$expertFirstName.' '.$expertMiddleName.' '.$expertLastName.' '.$expertSuffix;
+			
+			if ($expertFullName != $newExpertFullName) {		
+			  //echo ('<br><br> <a href="IndividualFullProfile.php?expert_id='.$expertID.'"> <img src="'.$expertPhoto.'"> </a> <br> <a href="IndividualFullProfile.php?expert_id='.$expertID.'">'.$newExpertFullName.'</a> <br>'.$expertTitle.'<br>'.$expertAddress);
+			  echo ('<br><br><br> <a href="IndividualFullProfile.php?expert_id='.$expertID.'">'.$newExpertFullName.'</a> <br>'.$expertTitle.'<br>'.$expertAddress);
+			  $expertFullName = $newExpertFullName;
+			}
+					
+			echo '<br>'.$expertContactType.' : '.$expertContactDesc.' '.$expertContactTimings;
 		}
-				
-		echo ('<br>'.$expertContactType.' : '.$expertContactDesc.' '.$expertContactTimings);
+		echo '<br><br><br><br>';
 	}
 }
+
+if($_GET["lastName"] != ""){
+	$lastName = $_GET["lastName"];
+	$lastNameList = sqlsrv_query( $connection, 'SELECT ExpertID, LastName, FirstName FROM ExpertBiodata WHERE LastName LIKE \'' . $lastName . '%\'');
+
+	while($row1 = sqlsrv_fetch_array($lastNameList)) {
+		$expertID = $row1['ExpertID'];
+		echo '<br>';
+		echo '<b><a href="IndividualFullProfile.php?expert_id='.$expertID.'">'.$row1['LastName'].' , ' . $row1['FirstName'] . '</a></b>';
+	
+		/*
+		//Query with PhotoID
+		
+		$fetchExpertDataQuery = 'SELECT e.ExpertID AS ExpertID, e.Prefix AS ExpertPrefix, e.FirstName AS ExpertFirstName, e.MiddleName AS ExpertMiddleName, e.LastName AS ExpertLastName, e.Suffix AS ExpertSuffix, e.Title AS ExpertTitle, e.ProfileDesc AS ExpertProfileDesc, e.Address AS ExpertAddress, c.ContactType AS ExpertContactType, c.ContactDesc AS ExpertContactDesc, c.ContactTimings AS ExpertContactTimings, p.PhotoURL AS ExpertPhoto FROM ExpertBioData e, Expert_AreaOfExpertise ea, Contact c, Photo p WHERE ea.AreaOfExpertiseID='.$areaOfExpertiseID.' AND e.ExpertID=ea.ExpertID AND e.ExpertID=c.ExpertID AND e.ExpertID=p.ExpertID AND p.PhotoID=3';
+		*/
+
+	}
 }
 sqlsrv_close($connection);
 ?>
