@@ -74,7 +74,7 @@ $("#searchBy").change(function(){
 		return;
 	}
 	var alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-	var valText = {expertise:"Expertise", lastName:"Last Name", firstName:"First Name"};
+	//var valText = {expertise:"Expertise", lastName:"Last Name", firstName:"First Name"};
 	if($("#searchBy").val() === "expertise"){
 		alphabet = ["4-H"].concat(alphabet);
 	}
@@ -82,16 +82,16 @@ $("#searchBy").change(function(){
 	for(i = 0; i < alphabet.length; i++){
 		htmlValue += "<a href='testYQ.php?" + $("#searchBy").val() + "=" + alphabet[i] + "'>" + alphabet[i] + "</a>  &nbsp";
 	}
+	htmlValue += "<hr/>";
 	document.getElementById("alphabet").innerHTML = htmlValue;
-	document.getElementById("result").getElementsByTagName("h4")[0].innerHTML = valText[$("#searchBy").val()] + " - ";
+	//document.getElementById("result").getElementsByTagName("h4")[0].innerHTML = valText[$("#searchBy").val()] + " - ";
 });
 </script>
 
-<hr/>
-
 <div id="result">  
-  <h4></h4><h3><?php echo $_GET["expertise"];?></h3>
-  <hr />
+  <h3><?php if($_GET["expertise"] != ""){echo "Expertise - " . $_GET["expertise"];} 
+  if($_GET["firstName"] != ""){echo "First Name - " . $_GET["firstName"];}
+  if($_GET["lastName"] != ""){echo "Last Name - " . $_GET["lastName"];}?></h3>
   
 <?php
 require_once 'DatabaseConnection.php';
