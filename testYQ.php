@@ -19,43 +19,6 @@
  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 <!-- jQuery -->
 <script type="text/javascript" charset="utf8" src="jquery-1.10.2.min.js"></script>
-<script>
-function filters()
-{
-   var strUser = document.getElementById("jumpMenu1").value;
-/* if(a.selectedIndex!=0){
-   var strUser = a.options[a.selectedIndex].value;
- } else{
-	 a.selectedIndex=1;
-	    var strUser = a.options[a.selectedIndex].value;
-	 };
-
-var strUser2 = document.getElementById('form1');*/
-
-showUser1(strUser);
-};
-function showUser1(str1) {
-  if (str1 =="") {
-    document.getElementById("txtHint").innerHTML="";
-    return;
-  } 
-  if (window.XMLHttpRequest) {
-    // code for IE7+, Firefox, Chrome, Opera, Safari
-    xmlhttp=new XMLHttpRequest();
-  } else { // code for IE6, IE5
-    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  xmlhttp.onreadystatechange=function() {
-    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-      document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
-	  dostuff();
-    }
-  }
-  xmlhttp.open("GET","experts.php?q="+str1+"&r="+str2,true);
-  xmlhttp.send();  
-  
-};
-</script>
  <!--End Scripts-->
  <!--Analytics-->
 <?php include 'include_analytics.shtml'; ?>
@@ -91,44 +54,43 @@ function showUser1(str1) {
 <!--Left column -->
   <div id="content-left" class="medium-12 columns">
   <h1>UF/IFAS Faculty Experts</h1>
-  <div class="row">
-  <div class="dropdown medium-6 columns"><form name="form" id="form" method="post">
-                      <select name="jumpMenu1" id = "jumpMenu1"  class="ui-dropdown-button" style="overflow:hidden;" onchange='filters()'>
-                        <option value="ALL">SEARCH EXPERTS</option>
-                        <option value="NAME">By Name</option>
-                        <option value="EXPERTISE">By Expertise</option>
-                      </select>
-                    </form></div>
-  </div>
-  <hr />
-<form id="search" action="testYQ.php" method="post" > 
- <select name="searchBy">
+
+<form> 
+ <select id="searchBy">
+  <option value="null">SEARCH EXPERTS BY</option>
   <option value="expertise">Expertise</option>
-  <option value="saab">Saab</option>
-  <option value="mercedes">Mercedes</option>
-  <option value="audi">Audi</option>
+  <option value="lastName">Last Name</option>
+  <option value="firstName">First Name</option>
 </select>
-<input type="submit" value="Submit">
 </form>
+
+<div id="alphabet"></div>
+
+<script>
+//document.getElementById("alphabet").innerHTML = "<p>test</p>";
+$("#searchBy").change(function(){	
+  	if($("#searchBy").val() === "null"){
+		document.getElementById("alphabet").innerHTML = "";
+		return;
+	}
+	var alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+	var valText = {expertise:"Expertise", lastName:"Last Name", firstName:"First Name"};
+	if($("#searchBy").val() === "expertise"){
+		alphabet = ["4-H"].concat(alphabet);
+	}
+	var htmlValue = "";
+	for(i = 0; i < alphabet.length; i++){
+		htmlValue += "<a href='testYQ.php?" + $("#searchBy").val() + "=" + alphabet[i] + "'>" + alphabet[i] + "</a>  &nbsp";
+	}
+	document.getElementById("alphabet").innerHTML = htmlValue;
+	document.getElementById("result").getElementsByTagName("h4")[0].innerHTML = valText[$("#searchBy").val()] + " - ";
+});
+</script>
+
 <hr/>
-<div id="alphabet" >
-        <form name="AlphabetMenuForm" id="form1" action="index.php" method="post">
-        <?php	
-		if(isset($_POST["searchBy"]))
-		{
-			$alphabetList = array_merge(array ('4-H'), range('A','Z'));
-			
-			 foreach ($alphabetList as $value) {
-				echo '<a href="testYQ.php?expertise=' .$value. '">' .$value. '</a>' . ' ';
-			 } 
-			//echo "<p>".$_POST['jumpMenu1']."</p>";
-		}
-        ?>         
-        <form> 
-</div>
-  <hr />
-<div id="txtHint" >  
-  <h4>Featured Faculty Experts</h4>
+
+<div id="result">  
+  <h4></h4>
   <hr />
   
 <?php
