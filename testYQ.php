@@ -141,7 +141,10 @@ if($_GET["expertise"] != ""){
 			
 			if ($expertFullName != $newExpertFullName) {		
 			  //echo ('<br><br> <a href="IndividualFullProfile.php?expert_id='.$expertID.'"> <img src="'.$expertPhoto.'"> </a> <br> <a href="IndividualFullProfile.php?expert_id='.$expertID.'">'.$newExpertFullName.'</a> <br>'.$expertTitle.'<br>'.$expertAddress);
-			  echo ('<br><br><br> <a href="IndividualFullProfile.php?expert_id='.$expertID.'">'.$newExpertFullName.'</a> <br>'.$expertTitle.'<br>'.$expertAddress);
+			  echo '<br><br><br> <a href="IndividualFullProfile.php?expert_id='.$expertID.'">'.$newExpertFullName.'</a> <br>';
+			  if($expertTitle != "")
+				echo $expertTitle.'<br>';
+			  echo $expertAddress;
 			  $expertFullName = $newExpertFullName;
 			}
 					
@@ -153,12 +156,16 @@ if($_GET["expertise"] != ""){
 
 if($_GET["lastName"] != ""){
 	$lastName = $_GET["lastName"];
-	$lastNameList = sqlsrv_query( $connection, 'SELECT ExpertID, LastName, FirstName FROM ExpertBiodata WHERE LastName LIKE \'' . $lastName . '%\'');
+	$lastNameList = sqlsrv_query( $connection, 'SELECT ExpertID, LastName, FirstName, Title, AddressLine1, AddressLine2 FROM ExpertBiodata WHERE LastName LIKE \'' . $lastName . '%\'');
 
 	while($row1 = sqlsrv_fetch_array($lastNameList)) {
 		$expertID = $row1['ExpertID'];
-		echo '<br>';
-		echo '<b><a href="IndividualFullProfile.php?expert_id='.$expertID.'">'.$row1['LastName'].' , ' . $row1['FirstName'] . '</a></b>';
+		echo '<br><br>';
+		echo '<b><a href="IndividualFullProfile.php?expert_id='.$expertID.'">'.$row1['LastName'].', ' . $row1['FirstName'] . '</a></b>';
+		if($row1['Title'] != "")
+			echo "<br>" . $row1['Title'];
+		echo "<br>" . $row1['AddressLine1'];
+		echo "<br>" . $row1['AddressLine2'];
 	
 		/*
 		//Query with PhotoID
