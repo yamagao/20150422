@@ -92,7 +92,7 @@ function showUser1(str1) {
   <div id="content-left" class="medium-12 columns">
   <h1>UF/IFAS Faculty Experts</h1>
   <div class="row">
-  <div class="dropdown medium-6 columns"><form name="form" id="form">
+  <div class="dropdown medium-6 columns"><form name="form" id="form" method="post">
                       <select name="jumpMenu1" id = "jumpMenu1"  class="ui-dropdown-button" style="overflow:hidden;" onchange='filters()'>
                         <option value="ALL">SEARCH EXPERTS</option>
                         <option value="NAME">By Name</option>
@@ -101,14 +101,28 @@ function showUser1(str1) {
                     </form></div>
   </div>
   <hr />
+<form id="search" action="testYQ.php" method="post" > 
+ <select name="searchBy">
+  <option value="expertise">Expertise</option>
+  <option value="saab">Saab</option>
+  <option value="mercedes">Mercedes</option>
+  <option value="audi">Audi</option>
+</select>
+<input type="submit" value="Submit">
+</form>
+<hr/>
 <div id="alphabet" >
         <form name="AlphabetMenuForm" id="form1" action="index.php" method="post">
         <?php	
-         $alphabetList = array_merge(array ('4-H'), range('A','Z'));
-        
-         foreach ($alphabetList as $value) {
-            echo '<a href="test.php?selected_menu_value=' .$value. '">' .$value . '</a>' . ' ';
-         }   
+		if(isset($_POST["searchBy"]))
+		{
+			$alphabetList = array_merge(array ('4-H'), range('A','Z'));
+			
+			 foreach ($alphabetList as $value) {
+				echo '<a href="testYQ.php?expertise=' .$value. '">' .$value. '</a>' . ' ';
+			 } 
+			//echo "<p>".$_POST['jumpMenu1']."</p>";
+		}
         ?>         
         <form> 
 </div>
@@ -118,9 +132,9 @@ function showUser1(str1) {
   <hr />
   
 <?php
-$selected_menu_value = $_GET["selected_menu_value"];
+$expertise = $_GET["expertise"];
 require_once 'DatabaseConnection.php';
-$areaOfExpertise = sqlsrv_query( $connection, 'SELECT AreaOfExpertiseID, Name FROM AreaOfExpertise WHERE Name LIKE \'' . $selected_menu_value . '%\'');
+$areaOfExpertise = sqlsrv_query( $connection, 'SELECT AreaOfExpertiseID, Name FROM AreaOfExpertise WHERE Name LIKE \'' . $expertise . '%\'');
 
 while($row1 = sqlsrv_fetch_array($areaOfExpertise)) {
 	$areaOfExpertiseID = $row1['AreaOfExpertiseID'];
