@@ -90,12 +90,16 @@ $("#searchBy").change(function(){
 <hr/>
 
 <div id="result">  
-  <h4></h4>
+  <h4></h4><h3><?php echo $_GET["expertise"];?></h3>
   <hr />
   
 <?php
-$expertise = $_GET["expertise"];
 require_once 'DatabaseConnection.php';
+
+if($_GET["expertise"] != ""){
+$expertise = $_GET["expertise"];
+//$lastName = $_GET["lastName"];
+//$firstName = $_GET["firstName"];
 $areaOfExpertise = sqlsrv_query( $connection, 'SELECT AreaOfExpertiseID, Name FROM AreaOfExpertise WHERE Name LIKE \'' . $expertise . '%\'');
 
 while($row1 = sqlsrv_fetch_array($areaOfExpertise)) {
@@ -139,6 +143,7 @@ $fetchExpertDataQuery = 'SELECT e.ExpertID AS ExpertID, e.Prefix AS ExpertPrefix
 				
 		echo ('<br>'.$expertContactType.' : '.$expertContactDesc.' '.$expertContactTimings);
 	}
+}
 }
 sqlsrv_close($connection);
 ?>
