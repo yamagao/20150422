@@ -113,42 +113,23 @@ if($_GET["expertise"] != ""){
 		$fetchExpertDataQuery = 'SELECT e.ExpertID AS ExpertID, e.Prefix AS ExpertPrefix, e.FirstName AS ExpertFirstName, e.MiddleName AS ExpertMiddleName, e.LastName AS ExpertLastName, e.Suffix AS ExpertSuffix, e.Title AS ExpertTitle, e.ProfileDesc AS ExpertProfileDesc, e.Address AS ExpertAddress, c.ContactType AS ExpertContactType, c.ContactDesc AS ExpertContactDesc, c.ContactTimings AS ExpertContactTimings, p.PhotoURL AS ExpertPhoto FROM ExpertBioData e, Expert_AreaOfExpertise ea, Contact c, Photo p WHERE ea.AreaOfExpertiseID='.$areaOfExpertiseID.' AND e.ExpertID=ea.ExpertID AND e.ExpertID=c.ExpertID AND e.ExpertID=p.ExpertID AND p.PhotoID=3';
 		*/
 		
-	$fetchExpertDataQuery = 'SELECT e.ExpertID AS ExpertID, e.Prefix AS ExpertPrefix, e.FirstName AS ExpertFirstName, e.MiddleName AS ExpertMiddleName, e.LastName AS ExpertLastName, e.Suffix AS ExpertSuffix, e.Degree AS ExpertDegree, e.Title AS ExpertTitle, e.ProfileDesc AS ExpertProfileDesc, e.AddressLine1 AS ExpertAddress1, e.AddressLine2 AS ExpertAddress2, e.AddressLine3 AS ExpertAddress3, c.ContactType AS ExpertContactType, c.ContactDesc AS ExpertContactDesc, c.ContactTimings AS ExpertContactTimings FROM ExpertBioData e, Expert_AreaOfExpertise ea, Contact c WHERE ea.AreaOfExpertiseID='.$areaOfExpertiseID.' AND e.ExpertID=ea.ExpertID AND e.ExpertID=c.ExpertID';
+		//$fetchExpertDataQuery = 'SELECT e.ExpertID AS ExpertID, e.Prefix AS ExpertPrefix, e.FirstName AS ExpertFirstName, e.MiddleName AS ExpertMiddleName, e.LastName AS ExpertLastName, e.Suffix AS ExpertSuffix, e.Degree AS ExpertDegree, e.Title AS ExpertTitle, e.ProfileDesc AS ExpertProfileDesc, e.AddressLine1 AS ExpertAddress1, e.AddressLine2 AS ExpertAddress2, e.AddressLine3 AS ExpertAddress3, c.ContactType AS ExpertContactType, c.ContactDesc AS ExpertContactDesc, c.ContactTimings AS ExpertContactTimings FROM ExpertBioData e, Expert_AreaOfExpertise ea, Contact c WHERE ea.AreaOfExpertiseID='.$areaOfExpertiseID.' AND e.ExpertID=ea.ExpertID AND e.ExpertID=c.ExpertID';
+		$fetchExpertDataQuery ="SELECT ea.ExpertID, LastName, FirstName, Title, AddressLine1, AddressLine2 FROM Expert_AreaOfExpertise ea, ExpertBiodata b WHERE ea.ExpertID = b.ExpertID AND ea.AreaOfExpertiseID = " . $areaOfExpertiseID;
 		
 		$expertData = sqlsrv_query( $connection, $fetchExpertDataQuery);	
-		$expertFullName = NULL;
 		
 		while($row2 = sqlsrv_fetch_array($expertData)) {
-			
 			$expertID = $row2['ExpertID'];
-			$expertPrefix = $row2['ExpertPrefix'];		
-			$expertFirstName = $row2['ExpertFirstName'];	
-			$expertMiddleName = $row2['ExpertMiddleName'];
-			$expertLastName = $row2['ExpertLastName'];
-			$expertSuffix = $row2['ExpertSuffix'];		
-			$expertTitle = $row2['ExpertTitle'];
-			$expertAddress = $row2['ExpertAddress1'];
-			//$expertPhoto = $row2['ExpertPhoto'];
-			$expertContactType = $row2['ExpertContactType'];
-			$expertContactDesc = $row2['ExpertContactDesc'];
-			$expertContactTimings = $row2['ExpertContactTimings'];
-			
-			if($expertFirstName == null && $expertLastName == null){
-				continue;
+			echo '<br><br>';
+			echo '<a href="IndividualFullProfile.php?expert_id='.$expertID.'">' . $row2['FirstName'] . ' ' . $row2['LastName'] . '</a>';
+			if($row2['Title'] != "")
+				echo "<br>" . $row2['Title'];
+			echo "<br>" . $row2['AddressLine1'];
+			echo "<br>" . $row2['AddressLine2'];
+			$contactQuery = sqlsrv_query( $connection, "SELECT ContactType, ContactDesc FROM ExpertBioData b, Contact c WHERE b.ExpertID = c.ExpertID AND b.expertID = " . $expertID);
+			while($row3 = sqlsrv_fetch_array($contactQuery)){
+				echo "<br>" . $row3['ContactType'] . " : " . $row3['ContactDesc'];
 			}
-			
-			$newExpertFullName = $expertPrefix.' '.$expertFirstName.' '.$expertMiddleName.' '.$expertLastName.' '.$expertSuffix;
-			
-			if ($expertFullName != $newExpertFullName) {		
-			  //echo ('<br><br> <a href="IndividualFullProfile.php?expert_id='.$expertID.'"> <img src="'.$expertPhoto.'"> </a> <br> <a href="IndividualFullProfile.php?expert_id='.$expertID.'">'.$newExpertFullName.'</a> <br>'.$expertTitle.'<br>'.$expertAddress);
-			  echo '<br><br><br> <a href="IndividualFullProfile.php?expert_id='.$expertID.'">'.$newExpertFullName.'</a> <br>';
-			  if($expertTitle != "")
-				echo $expertTitle.'<br>';
-			  echo $expertAddress;
-			  $expertFullName = $newExpertFullName;
-			}
-					
-			echo '<br>'.$expertContactType.' : '.$expertContactDesc.' '.$expertContactTimings;
 		}
 		echo '<br><br><br><br>';
 	}
