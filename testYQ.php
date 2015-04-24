@@ -101,19 +101,14 @@ if($_GET["expertise"] != ""){
 	//$lastName = $_GET["lastName"];
 	//$firstName = $_GET["firstName"];
 	$areaOfExpertise = sqlsrv_query( $connection, 'SELECT AreaOfExpertiseID, Name FROM AreaOfExpertise WHERE Name LIKE \'' . $expertise . '%\'');
-
+	$resultFlag = false;
 	while($row1 = sqlsrv_fetch_array($areaOfExpertise)) {
+		if (!$resultFlag)
+			$resultFlag = true;
 		$areaOfExpertiseID = $row1['AreaOfExpertiseID'];
 		echo '<br>';
 		echo '<b>'.$row1['Name'].'</b>';
-		
-		/*
-		//Query with PhotoID
-		
-		$fetchExpertDataQuery = 'SELECT e.ExpertID AS ExpertID, e.Prefix AS ExpertPrefix, e.FirstName AS ExpertFirstName, e.MiddleName AS ExpertMiddleName, e.LastName AS ExpertLastName, e.Suffix AS ExpertSuffix, e.Title AS ExpertTitle, e.ProfileDesc AS ExpertProfileDesc, e.Address AS ExpertAddress, c.ContactType AS ExpertContactType, c.ContactDesc AS ExpertContactDesc, c.ContactTimings AS ExpertContactTimings, p.PhotoURL AS ExpertPhoto FROM ExpertBioData e, Expert_AreaOfExpertise ea, Contact c, Photo p WHERE ea.AreaOfExpertiseID='.$areaOfExpertiseID.' AND e.ExpertID=ea.ExpertID AND e.ExpertID=c.ExpertID AND e.ExpertID=p.ExpertID AND p.PhotoID=3';
-		*/
-		
-		//$fetchExpertDataQuery = 'SELECT e.ExpertID AS ExpertID, e.Prefix AS ExpertPrefix, e.FirstName AS ExpertFirstName, e.MiddleName AS ExpertMiddleName, e.LastName AS ExpertLastName, e.Suffix AS ExpertSuffix, e.Degree AS ExpertDegree, e.Title AS ExpertTitle, e.ProfileDesc AS ExpertProfileDesc, e.AddressLine1 AS ExpertAddress1, e.AddressLine2 AS ExpertAddress2, e.AddressLine3 AS ExpertAddress3, c.ContactType AS ExpertContactType, c.ContactDesc AS ExpertContactDesc, c.ContactTimings AS ExpertContactTimings FROM ExpertBioData e, Expert_AreaOfExpertise ea, Contact c WHERE ea.AreaOfExpertiseID='.$areaOfExpertiseID.' AND e.ExpertID=ea.ExpertID AND e.ExpertID=c.ExpertID';
+
 		$fetchExpertDataQuery ="SELECT ea.ExpertID, LastName, FirstName, Title, AddressLine1, AddressLine2 FROM Expert_AreaOfExpertise ea, ExpertBiodata b WHERE ea.ExpertID = b.ExpertID AND ea.AreaOfExpertiseID = " . $areaOfExpertiseID;
 		
 		$expertData = sqlsrv_query( $connection, $fetchExpertDataQuery);	
@@ -133,13 +128,17 @@ if($_GET["expertise"] != ""){
 		}
 		echo '<br><br><br>';
 	}
+	if(!$resultFlag)
+		echo "<br>No result under this category currently.";
 }
 
 if($_GET["lastName"] != ""){
 	$lastName = $_GET["lastName"];
 	$lastNameList = sqlsrv_query( $connection, 'SELECT ExpertID, LastName, FirstName, Title, AddressLine1, AddressLine2 FROM ExpertBiodata WHERE LastName LIKE \'' . $lastName . '%\'');
-
+	$resultFlag = false;	
 	while($row1 = sqlsrv_fetch_array($lastNameList)) {
+		if (!$resultFlag)
+			$resultFlag = true;
 		$expertID = $row1['ExpertID'];
 		echo '<br><br>';
 		echo '<b><a href="IndividualFullProfile.php?expert_id='.$expertID.'">'.$row1['LastName'].', ' . $row1['FirstName'] . '</a></b>';
@@ -162,14 +161,18 @@ if($_GET["lastName"] != ""){
 		}
 		
 		echo "<br>";
-	}
+	}	
+	if(!$resultFlag)
+		echo "<br>No result under this category currently.";
 }
 
 if($_GET["firstName"] != ""){
 	$firstName = $_GET["firstName"];
 	$firstNameList = sqlsrv_query( $connection, 'SELECT ExpertID, LastName, FirstName, Title, AddressLine1, AddressLine2 FROM ExpertBiodata WHERE FirstName LIKE \'' . $firstName . '%\'');
-
+	$resultFlag = false;
 	while($row1 = sqlsrv_fetch_array($firstNameList)) {
+		if (!$resultFlag)
+			$resultFlag = true;
 		$expertID = $row1['ExpertID'];
 		echo '<br><br>';
 		echo '<b><a href="IndividualFullProfile.php?expert_id='.$expertID.'">' . $row1['FirstName'] . ' ' . $row1['LastName'] . '</a></b>';
@@ -193,6 +196,8 @@ if($_GET["firstName"] != ""){
 		
 		echo "<br>";
 	}
+	if(!$resultFlag)
+		echo "<br>No result under this category currently.";
 }
 sqlsrv_close($connection);
 ?>
