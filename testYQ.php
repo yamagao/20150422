@@ -164,6 +164,36 @@ if($_GET["lastName"] != ""){
 		echo "<br>";
 	}
 }
+
+if($_GET["firstName"] != ""){
+	$firstName = $_GET["firstName"];
+	$firstNameList = sqlsrv_query( $connection, 'SELECT ExpertID, LastName, FirstName, Title, AddressLine1, AddressLine2 FROM ExpertBiodata WHERE FirstName LIKE \'' . $firstName . '%\'');
+
+	while($row1 = sqlsrv_fetch_array($firstNameList)) {
+		$expertID = $row1['ExpertID'];
+		echo '<br><br>';
+		echo '<b><a href="IndividualFullProfile.php?expert_id='.$expertID.'">' . $row1['FirstName'] . ' ' . $row1['LastName'] . '</a></b>';
+		if($row1['Title'] != "")
+			echo "<br>" . $row1['Title'];
+		echo "<br>" . $row1['AddressLine1'];
+		echo "<br>" . $row1['AddressLine2'];
+		
+		$contactQuery = sqlsrv_query($connection, "SELECT ContactType, ContactDesc FROM ExpertBioData b, Contact c WHERE b.ExpertID = c.ExpertID AND b.expertID = " . $expertID);
+		while($row2 = sqlsrv_fetch_array($contactQuery)){
+			echo "<br>" . $row2['ContactType'] . " : " . $row2['ContactDesc'];
+		}
+		
+		$expertiseQuery = sqlsrv_query($connection, "SELECT Name FROM Expert_AreaOfExpertise ea, AreaOfExpertise a WHERE ea.AreaOfExpertiseID = a.AreaOfExpertiseID AND ea.ExpertID = " . $expertID);
+		echo "<br>Expertise: ";
+//		if($rowFirst = sqlsrv_fetch_array($expertiseQuery))
+//			echo "<a href='testYQ.php?expertise=" . $rowFirst['Name'] . "'>[".$rowFirst['Name'] . "]</a>";
+		while($row3 = sqlsrv_fetch_array($expertiseQuery)){
+			echo "<a href='testYQ.php?expertise=" . $row3['Name'] . "'>[".$row3['Name'] . "]</a>";
+		}
+		
+		echo "<br>";
+	}
+}
 sqlsrv_close($connection);
 ?>
 </div>  
