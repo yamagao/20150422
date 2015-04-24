@@ -166,7 +166,10 @@ if($_GET["lastName"] != ""){
 			echo "<br>" . $row1['Title'];
 		echo "<br>" . $row1['AddressLine1'];
 		echo "<br>" . $row1['AddressLine2'];
-	
+		$contactQuery = sqlsrv_query( $connection, "SELECT ContactType, ContactDesc FROM ExpertBioData b, Contact c WHERE b.ExpertID = c.ExpertID AND b.expertID = " . $expertID);
+		while($row2 = sqlsrv_fetch_array($contactQuery)){
+			echo "<br>" . $row2['ContactType'] . " : " . $row2['ContactDesc'];
+		}
 		/*
 		//Query with PhotoID
 		
