@@ -131,7 +131,7 @@ if($_GET["expertise"] != ""){
 				echo "<br>" . $row3['ContactType'] . " : " . $row3['ContactDesc'];
 			}
 		}
-		echo '<br><br><br><br>';
+		echo '<br><br><br>';
 	}
 }
 
@@ -147,16 +147,21 @@ if($_GET["lastName"] != ""){
 			echo "<br>" . $row1['Title'];
 		echo "<br>" . $row1['AddressLine1'];
 		echo "<br>" . $row1['AddressLine2'];
-		$contactQuery = sqlsrv_query( $connection, "SELECT ContactType, ContactDesc FROM ExpertBioData b, Contact c WHERE b.ExpertID = c.ExpertID AND b.expertID = " . $expertID);
+		
+		$contactQuery = sqlsrv_query($connection, "SELECT ContactType, ContactDesc FROM ExpertBioData b, Contact c WHERE b.ExpertID = c.ExpertID AND b.expertID = " . $expertID);
 		while($row2 = sqlsrv_fetch_array($contactQuery)){
 			echo "<br>" . $row2['ContactType'] . " : " . $row2['ContactDesc'];
 		}
-		/*
-		//Query with PhotoID
 		
-		$fetchExpertDataQuery = 'SELECT e.ExpertID AS ExpertID, e.Prefix AS ExpertPrefix, e.FirstName AS ExpertFirstName, e.MiddleName AS ExpertMiddleName, e.LastName AS ExpertLastName, e.Suffix AS ExpertSuffix, e.Title AS ExpertTitle, e.ProfileDesc AS ExpertProfileDesc, e.Address AS ExpertAddress, c.ContactType AS ExpertContactType, c.ContactDesc AS ExpertContactDesc, c.ContactTimings AS ExpertContactTimings, p.PhotoURL AS ExpertPhoto FROM ExpertBioData e, Expert_AreaOfExpertise ea, Contact c, Photo p WHERE ea.AreaOfExpertiseID='.$areaOfExpertiseID.' AND e.ExpertID=ea.ExpertID AND e.ExpertID=c.ExpertID AND e.ExpertID=p.ExpertID AND p.PhotoID=3';
-		*/
-
+		$expertiseQuery = sqlsrv_query($connection, "SELECT Name FROM Expert_AreaOfExpertise ea, AreaOfExpertise a WHERE ea.AreaOfExpertiseID = a.AreaOfExpertiseID AND ea.ExpertID = " . $expertID);
+		echo "<br>Expertise: ";
+//		if($rowFirst = sqlsrv_fetch_array($expertiseQuery))
+//			echo "<a href='testYQ.php?expertise=" . $rowFirst['Name'] . "'>[".$rowFirst['Name'] . "]</a>";
+		while($row3 = sqlsrv_fetch_array($expertiseQuery)){
+			echo "<a href='testYQ.php?expertise=" . $row3['Name'] . "'>[".$row3['Name'] . "]</a>";
+		}
+		
+		echo "<br>";
 	}
 }
 sqlsrv_close($connection);
