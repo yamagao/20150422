@@ -79,7 +79,7 @@ function removeButton(id){
 </head>
 
 <body>
-
+<form action="UpdateIndividualFullProfile.php" method="POST">
 <?php
 $expertID = $_POST["ExpertID"];
 //$expertID = 284;
@@ -255,7 +255,7 @@ while($row4 = sqlsrv_fetch_array($areaOfExpertise)) {
 <br>
 <input type="hidden" name="AOELoopCount" value="<?php echo $aoeLoopCount ?>"/>
 <br />
-<form action="UpdateIndividualFullProfile.php" method="POST">
+
 <input type="submit" id="updateExpert" value="Update"/> 
 
 
