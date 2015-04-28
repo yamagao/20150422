@@ -9,17 +9,17 @@
 
 <?php
 $expertID = $_POST["ExpertID"];
-$expertPrefix = $_POST["ExpertPrefix"];
-$expertFirstName = $_POST["ExpertFirstName"];
-$expertMiddleName = $_POST["ExpertMiddleName"];
-$expertLastName = $_POST["ExpertLastName"];
-$expertSuffix = $_POST["ExpertSuffix"];
-$expertDegree = $_POST["ExpertDegree"];
-$expertTitle = $_POST["ExpertTitle"];
-$expertProfileDesc = $_POST["ExpertProfileDesc"];
-$expertAddressLine1 = $_POST["ExpertAddressLine1"];
-$expertAddressLine2 = $_POST["ExpertAddressLine2"];
-$expertAddressLine3 = $_POST["ExpertAddressLine3"];
+$expertPrefix = str_replace("'","''",$_POST["ExpertPrefix"]);
+$expertFirstName = str_replace("'","''",$_POST["ExpertFirstName"]);
+$expertMiddleName = str_replace("'","''",$_POST["ExpertMiddleName"]);
+$expertLastName = str_replace("'","''",$_POST["ExpertLastName"]);
+$expertSuffix = str_replace("'","''",$_POST["ExpertSuffix"]);
+$expertDegree = str_replace("'","''",$_POST["ExpertDegree"]);
+$expertTitle = str_replace("'","''",$_POST["ExpertTitle"]);
+$expertProfileDesc = str_replace("'","''",$_POST["ExpertProfileDesc"]);
+$expertAddressLine1 = str_replace("'","''",$_POST["ExpertAddressLine1"]);
+$expertAddressLine2 = str_replace("'","''",$_POST["ExpertAddressLine2"]);
+$expertAddressLine3 = str_replace("'","''",$_POST["ExpertAddressLine3"]);
 
 require_once 'DatabaseConnection.php';
 
