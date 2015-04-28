@@ -62,13 +62,10 @@ $expertID = $_GET["expert_id"];
 <?php
 require_once 'DatabaseConnection.php';
 
-/*	
-$fetchExpertDataQuery = 'SELECT distinct e.Prefix AS ExpertPrefix, e.FirstName AS ExpertFirstName, e.MiddleName AS ExpertMiddleName, e.LastName AS ExpertLastName, e.Suffix AS ExpertSuffix, e.Title AS ExpertTitle, e.ProfileDesc AS ExpertProfileDesc, e.Address AS ExpertAddress, c.ContactType AS ExpertContactType, c.ContactDesc AS ExpertContactDesc, c.ContactTimings AS ExpertContactTimings, p.PhotoURL AS ExpertPhoto FROM ExpertBioData e, Expert_AreaOfExpertise ea, Contact c, Photo p WHERE e.ExpertID='.$expertID.' AND e.ExpertID=ea.ExpertID AND e.ExpertID=c.ExpertID AND e.ExpertID=p.ExpertID AND p.PhotoID=1';
-
-$fetchExpertDataQuery = 'SELECT distinct e.Prefix AS ExpertPrefix, e.FirstName AS ExpertFirstName, e.MiddleName AS ExpertMiddleName, e.LastName AS ExpertLastName, e.Suffix AS ExpertSuffix, e.Title AS ExpertTitle, e.ProfileDesc AS ExpertProfileDesc, e.AddressLine1 AS ExpertAddress1, e.AddressLine2 AS ExpertAddress2, e.AddressLine3 AS ExpertAddress3, c.ContactType AS ExpertContactType, c.ContactDesc AS ExpertContactDesc, c.ContactTimings AS ExpertContactTimings, aoe.Name AS ExpertAreaOFExpertise FROM ExpertBioData e, Expert_AreaOfExpertise ea, AreaOfExpertise aoe, Contact c WHERE e.ExpertID='.$expertID.' AND e.ExpertID=ea.ExpertID AND e.ExpertID=c.ExpertID AND ea.AreaOfExpertiseID=aoe.AreaOfExpertiseID';
-
-*/
-
+$photoQuery = sqlsrv_query($connection, "SELECT PhotoURL FROM Photo WHERE ExpertID = " . $expertID);
+if($row4 = sqlsrv_fetch_array($photoQuery)){
+	echo '<img src="images/experts/large/' . $row4['PhotoURL'] . '" alt="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" title="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'"><br>';
+}
 
 //Query to fetch Expert Bio data
 $fetchExpertDataQuery = 'SELECT distinct Prefix AS ExpertPrefix, FirstName AS ExpertFirstName, MiddleName AS ExpertMiddleName, LastName AS ExpertLastName, Suffix AS ExpertSuffix, Degree AS ExpertDegree, Title AS ExpertTitle, ProfileDesc AS ExpertProfileDesc, AddressLine1 AS ExpertAddress1, AddressLine2 AS ExpertAddress2, AddressLine3 AS ExpertAddress3 FROM ExpertBioData WHERE ExpertID='.$expertID;
