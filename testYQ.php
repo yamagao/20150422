@@ -141,6 +141,10 @@ if($_GET["lastName"] != ""){
 			$resultFlag = true;
 		$expertID = $row1['ExpertID'];
 		echo '<br><br>';
+		$photoQuery = sqlsrv_query($connection, "SELECT PhotoURL FROM Photo WHERE ExpertID = " . $expertID);
+		while($row4 = sqlsrv_fetch_array($photoQuery)){
+			echo '<a href="IndividualFullProfile.php?expert_id='.$expertID.'"><img src="images/experts/thumbnail/' . $row4['PhotoURL'] . '" alt="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" title="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" height="180" width="150"></a>';
+		}
 		echo '<b><a href="IndividualFullProfile.php?expert_id='.$expertID.'">'.$row1['LastName'].', ' . $row1['FirstName'] . '</a></b>';
 		if($row1['Title'] != "")
 			echo "<br>" . $row1['Title'];
