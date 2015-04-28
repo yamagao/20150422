@@ -125,7 +125,7 @@ if($_GET["expertise"] != ""){
 				echo '<img src="images/experts/thumbnail/placeholder.jpg" height="180" width="150"><br>';
 			}
 			
-			echo '<a href="IndividualFullProfile.php?expert_id='.$expertID.'">' . $row2['FirstName'] . ' ' . $row2['LastName'] . '</a>';
+			echo '<b><a href="IndividualFullProfile.php?expert_id='.$expertID.'">' . $row2['FirstName'] . ' ' . $row2['LastName'] . '</a></b>';
 			if($row2['Title'] != "")
 				echo "<br>" . $row2['Title'];
 			echo "<br>" . $row2['AddressLine1'];
