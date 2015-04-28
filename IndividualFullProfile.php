@@ -58,13 +58,18 @@ $expertID = $_GET["expert_id"];
 ?>
 
 <form action="EditIndividualFullProfile.php" method="POST">
-
+<h1>UF/IFAS Faculty Experts</h1>
 <?php
 require_once 'DatabaseConnection.php';
 
 $photoQuery = sqlsrv_query($connection, "SELECT PhotoURL FROM Photo WHERE ExpertID = " . $expertID);
 if($row4 = sqlsrv_fetch_array($photoQuery)){
 	echo '<img src="images/experts/large/' . $row4['PhotoURL'] . '" alt="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" title="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'"><br>';
+	echo '<img src="images/experts/thumbnail/' . $row4['PhotoURL'] . '" alt="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" title="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'"><br>';
+}
+else{
+	echo '<img src="images/experts/large/placeholder.jpg"><br>';
+	echo '<img src="images/experts/thumbnail/placeholder.jpg"><br>';
 }
 
 //Query to fetch Expert Bio data
