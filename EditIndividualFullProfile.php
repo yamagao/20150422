@@ -153,7 +153,36 @@ while($row = sqlsrv_fetch_array($expertData)) {
      <br />
      <p> Address line 3: </p> <input type="text" name="ExpertAddressLine3" value="<?php echo htmlentities($expertAddressLine3); ?>"/>
      <br />
-     <p> Contact details: </p> <br /> 
+     <p> Contact details: </p>
+
+	<p><a href="#" id="addScnt">Add Another Input Box</a></p>
+
+	<div id="p_scents">
+		<p>
+			<label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="Content Type" /><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="Detail" /></label>
+		</p>
+	</div>
+
+	<script type="text/javascript" language="javascript">
+		$(function() {
+			var scntDiv = $('#p_scents');
+			var i = $('#p_scents p').size() + 1;
+			
+			$('#addScnt').live('click', function() {
+					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="Content Type" /><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="Detail" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					i++;
+					return false;
+			});
+			
+			$('#remScnt').live('click', function() { 
+					if( i > 2 ) {
+							$(this).parents('p').remove();
+							i--;
+					}
+					return false;
+			});
+		});	
+	</script>
 <?php
 }
 
