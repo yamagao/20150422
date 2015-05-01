@@ -159,7 +159,16 @@ while($row = sqlsrv_fetch_array($expertData)) {
 
 	<div id="p_scents">
 		<p>
-			<label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="Content Type" /><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="Detail" /></label>
+			<?php
+				while($row2 = sqlsrv_fetch_array($expertContact)) {
+					$expertContactID = $row2['ExpertContactID'];
+					$expertContactType = $row2['ExpertContactType'];
+					$expertContactDesc = $row2['ExpertContactDesc'];
+					$expertContactTimings = $row2['ExpertContactTimings'];
+					
+					echo '<label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="' . $expertContactType . '" placeholder="Content Type" /><input type="text" id="p_scnt" size="20" name="p_scnt" value="' . $expertContactDesc . '" placeholder="Detail" /></label><a href="#" id="remScnt">Remove</a></p>';
+				}
+			?>
 		</p>
 	</div>
 
@@ -167,6 +176,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
 		$(function() {
 			var scntDiv = $('#p_scents');
 			var i = $('#p_scents p').size() + 1;
+			<?php echo "alert(i);";?>
 			
 			$('#addScnt').live('click', function() {
 					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="Content Type" /><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="Detail" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
@@ -182,7 +192,6 @@ while($row = sqlsrv_fetch_array($expertData)) {
 					return false;
 			});
 		});	
-		<?php echo "alert('aa');"?>
 	</script>
 <?php
 }
