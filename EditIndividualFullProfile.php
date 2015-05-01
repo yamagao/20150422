@@ -155,7 +155,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
      <br />
      <p> Contact details: </p>
 
-	<p><a href="#" id="addScnt">Add Another Input Box</a></p>
+	<p>Add Contact Options: <a href="#" id="addPhone">Phone</a> <a href="#" id="addEmail">Email</a> <a href="#" id="addLinkedIn">LinkedIn</a> <a href="#" id="addFacebook">Facebook</a> <a href="#" id="addTwitter">Twitter</a></p> <a href="#" id="addGooglePlus">Google+</a></p>
 
 	<div id="p_scents">		
 			<?php
@@ -165,7 +165,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
 					$expertContactDesc = $row2['ExpertContactDesc'];
 					$expertContactTimings = $row2['ExpertContactTimings'];
 					
-					echo '<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="' . $expertContactType . '" placeholder="Content Type" /><input type="text" id="p_scnt" size="20" name="p_scnt" value="' . $expertContactDesc . '" placeholder="Detail" /></label><a href="#" id="remScnt">Remove</a></p>';
+					echo '<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="' . $expertContactType . '" readonly/><input type="text" id="p_scnt" size="20" name="p_scnt" value="' . $expertContactDesc . '"/></label> <a href="#" id="remScnt">Remove</a></p>';
 				}
 			?>
 	</div>
@@ -175,8 +175,38 @@ while($row = sqlsrv_fetch_array($expertData)) {
 			var scntDiv = $('#p_scents');
 			var i = $('#p_scents p').size() + 1;
 			
-			$('#addScnt').live('click', function() {
-					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="Content Type" /><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="Detail" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+			$('#addPhone').live('click', function() {
+					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="Phone" readonly/><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="XXX-XXX-XXXX" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					i++;
+					return false;
+			});
+			
+			$('#addEmail').live('click', function() {
+					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="Email" readonly/><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="name@example.com" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					i++;
+					return false;
+			});
+			
+			$('#addLinkedIn').live('click', function() {
+					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="LinkedIn" readonly/><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					i++;
+					return false;
+			});
+			
+			$('#addFacebook').live('click', function() {
+					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="Facebook" readonly/><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					i++;
+					return false;
+			});
+			
+			$('#addTwitter').live('click', function() {
+					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="Twitter" readonly/><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					i++;
+					return false;
+			});
+			
+			$('#addGooglePlus').live('click', function() {
+					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="Google+" readonly/><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
 					i++;
 					return false;
 			});
