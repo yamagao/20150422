@@ -182,6 +182,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
 					return false;
 			});
 		});	
+		<?php echo "alert('aa');"?>
 	</script>
 <?php
 }
