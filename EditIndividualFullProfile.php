@@ -157,8 +157,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
 
 	<p><a href="#" id="addScnt">Add Another Input Box</a></p>
 
-	<div id="p_scents">
-		<p>
+	<div id="p_scents">		
 			<?php
 				while($row2 = sqlsrv_fetch_array($expertContact)) {
 					$expertContactID = $row2['ExpertContactID'];
@@ -166,10 +165,9 @@ while($row = sqlsrv_fetch_array($expertData)) {
 					$expertContactDesc = $row2['ExpertContactDesc'];
 					$expertContactTimings = $row2['ExpertContactTimings'];
 					
-					echo '<label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="' . $expertContactType . '" placeholder="Content Type" /><input type="text" id="p_scnt" size="20" name="p_scnt" value="' . $expertContactDesc . '" placeholder="Detail" /></label><a href="#" id="remScnt">Remove</a></p>';
+					echo '<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="' . $expertContactType . '" placeholder="Content Type" /><input type="text" id="p_scnt" size="20" name="p_scnt" value="' . $expertContactDesc . '" placeholder="Detail" /></label><a href="#" id="remScnt">Remove</a></p>';
 				}
 			?>
-		</p>
 	</div>
 
 	<script type="text/javascript" language="javascript">
@@ -185,7 +183,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
 			});
 			
 			$('#remScnt').live('click', function() { 
-					if( i > 2 ) {
+					if( i > 1 ) {
 							$(this).parents('p').remove();
 							i--;
 					}
