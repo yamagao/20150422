@@ -64,17 +64,6 @@
         
         
 <script language='javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js'></script>
-       
-<script type="text/javascript" language="javascript">
-function addButton(id1, id2){
-	document.getElementById(id1).style.display='none';
-	document.getElementById(id2).style.display='block';
-}
-
-function removeButton(id){
-	document.getElementById(id).style.display='none';
-}
-</script>
 
 </head>
 
@@ -121,12 +110,6 @@ while($row = sqlsrv_fetch_array($expertData)) {
 	$expertAddressLine1 = $row['ExpertAddress1'];
 	$expertAddressLine2 = $row['ExpertAddress2'];
 	$expertAddressLine3 = $row['ExpertAddress3'];
-         //$expertPhoto = $row['ExpertPhoto'];
-		
-//	$newExpertFullName = $expertPrefix.' '.$expertFirstName.' '.$expertMiddleName.' '.$expertLastName.' '.$expertSuffix;
-		
-//	  echo ('<br><br> <img src="'.$expertPhoto.'"> <br>'.$newExpertFullName.'<br>'.$expertTitle.'<br><br>'.$expertProfileDesc.'<br><br>'.$expertAddress);
-//	  echo ($newExpertFullName.'<br>'.$expertTitle.'<br><br>'.$expertProfileDesc.'<br><br>'.$expertAddressLine1.'<br><br>'.$expertAddressLine2.'<br><br>'.$expertAddressLine3);
 ?>
 
 	 <input type="hidden" name="ExpertID" value=<?php echo $expertID;?> />
@@ -222,78 +205,12 @@ while($row = sqlsrv_fetch_array($expertData)) {
 	</script>
 <?php
 }
-
-$contactLoopCount = 1;
-while($row2 = sqlsrv_fetch_array($expertContact)) {
-	$expertContactID = $row2['ExpertContactID'];
-	$expertContactType = $row2['ExpertContactType'];
-	$expertContactDesc = $row2['ExpertContactDesc'];
-	$expertContactTimings = $row2['ExpertContactTimings'];
-	
-	echo('<div id="expertContact'.$contactLoopCount.'">');
-	echo ('<br />');	
-	echo ('<input type="hidden" name="ExpertContactID'.$contactLoopCount.'" value= '.$expertContactID.' />');
-	echo ('<input type="text" name="ExpertContactType'.$contactLoopCount.'" value= '.htmlentities($expertContactType).' />');
-	echo ('&nbsp;&nbsp;&nbsp;&nbsp;');
-	echo ('<input type="text" name="ExpertContactDesc'.$contactLoopCount.'" value= '.htmlentities($expertContactDesc).' />');
-	echo ('<button name="RemoveContact'.$contactLoopCount.'" onclick="removeButton(\'expertContact'.$contactLoopCount.'\')"> - </button> </div>');
-	
-/*	echo ('<br />');
-	echo ('<input type="text" name="ExpertContactTimings'.$contactLoopCount.'" value= '.htmlentities($expertContactTimings).' />');
-	echo ('<br />');
-	*/
-	?>
-  
-    <?php
-	$contactLoopCount = $contactLoopCount + 1;
-}
-
-echo ('<button id="AddContact1" onclick="addButton(\'AddContact1\', \'addExpertContact2\')"> + </button>');		
-for($addContactLoopCount=2; $addContactLoopCount<10; $addContactLoopCount++) {
-	echo('<div id="addExpertContact'.$addContactLoopCount.'">');
-	echo ('<br />');
-	echo ('<input type="hidden" name="ExpertContactID'.$addContactLoopCount.'"/>');
-	echo ('<input type="text" name="ExpertContactType'.$addContactLoopCount.'"/>');
-	echo ('&nbsp;&nbsp;&nbsp;&nbsp;');
-	echo ('<input type="text" name="ExpertContactDesc'.$addContactLoopCount.'"/>');
-	$x = $addContactLoopCount+1;
-	echo ('<button id="AddContact'.$addContactLoopCount.'" onclick="addButton(\'AddContact'.$addContactLoopCount.'\', \'addExpertContact'.$x.'\')"> + </button> </div>');
-}
-
 ?>
-
-
 
 <input type="hidden" name="ContactLoopCount" value="<?php echo $contactLoopCount ?>"/>
 <p> Area of expertise: </p> <br />
 
-<!--
-code was written by mohan dont know y
-
-
-<input type='text' /><br/>
-<select name="AOEName" style='display:none;'>
-
-
--->
 <?php
-
-//$aoeLoopCount = 1;
-//while($row3 = sqlsrv_fetch_array($areaOfExpertise)) {
-//
-//	$expertAreaOfExpertiseID = $row3['ExpertAreaOfExpertiseID'];	
-//	$areaOfExpertiseID = $row3['AreaOfExpertiseID'];			
-//	$areaOfExpertiseName = $row3['AreaOfExpertiseName'];
-//
-////	echo ('<input type="hidden" name="AOEID'.$aoeLoopCount.'" value= '.$areaOfExpertiseID.' />');
-////	echo ('<input type="hidden" name="ExpertAOEID'.$aoeLoopCount.'" value= '.$expertAreaOfExpertiseID.' />');
-//	echo ('<option name="AOEName'.$aoeLoopCount.'" value= '.htmlentities($areaOfExpertise).'>'.htmlentities($areaOfExpertiseName).'</option>');
-//
-//	$aoeLoopCount = $aoeLoopCount + 1;		
-//}
-
-
-
 
 // code written by binesh, just for checking the functionality
 
