@@ -63,7 +63,7 @@
 </style>
         
         
-<script language='javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js'></script>
+<script language="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
 
 </head>
 
@@ -71,20 +71,14 @@
 <form action="UpdateIndividualFullProfile.php" method="POST">
 <?php
 $expertID = $_POST["ExpertID"];
-//$expertID = 284;
 
 require_once 'DatabaseConnection.php';
 
-/*	
-$fetchExpertDataQuery = 'SELECT distinct e.Prefix AS ExpertPrefix, e.FirstName AS ExpertFirstName, e.MiddleName AS ExpertMiddleName, e.LastName AS ExpertLastName, e.Suffix AS ExpertSuffix, e.Title AS ExpertTitle, e.ProfileDesc AS ExpertProfileDesc, e.Address AS ExpertAddress, c.ContactType AS ExpertContactType, c.ContactDesc AS ExpertContactDesc, c.ContactTimings AS ExpertContactTimings, p.PhotoURL AS ExpertPhoto FROM ExpertBioData e, Expert_AreaOfExpertise ea, Contact c, Photo p WHERE e.ExpertID='.$expertID.' AND e.ExpertID=ea.ExpertID AND e.ExpertID=c.ExpertID AND e.ExpertID=p.ExpertID AND p.PhotoID=1';
-*/
-//CAST(Content AS TEXT) AS Content //ereg_replace("\n", '',
-
 //Query to fetch Expert Bio data
-$fetchExpertDataQuery = 'SELECT distinct Prefix AS ExpertPrefix, FirstName AS ExpertFirstName, MiddleName AS ExpertMiddleName, LastName AS ExpertLastName, Suffix AS ExpertSuffix, Degree AS ExpertDegree, Title AS ExpertTitle, ProfileDesc AS ExpertProfileDesc, AddressLine1 AS ExpertAddress1, AddressLine2 AS ExpertAddress2, AddressLine3 AS ExpertAddress3 FROM ExpertBioData WHERE ExpertID='.$expertID;
+$fetchExpertDataQuery = "SELECT distinct Prefix AS ExpertPrefix, FirstName AS ExpertFirstName, MiddleName AS ExpertMiddleName, LastName AS ExpertLastName, Suffix AS ExpertSuffix, Degree AS ExpertDegree, Title AS ExpertTitle, ProfileDesc AS ExpertProfileDesc, AddressLine1 AS ExpertAddress1, AddressLine2 AS ExpertAddress2, AddressLine3 AS ExpertAddress3 FROM ExpertBioData WHERE ExpertID=" . $expertID;
 
 //Query to fetch contact
-$fetchExpertContactQuery = 'SELECT distinct ContactID AS ExpertContactID, ContactType AS ExpertContactType, ContactDesc AS ExpertContactDesc, ContactTimings AS ExpertContactTimings FROM Contact WHERE ExpertID='.$expertID;
+$fetchExpertContactQuery = "SELECT distinct ContactID AS ExpertContactID, ContactType AS ExpertContactType, ContactDesc AS ExpertContactDesc, ContactTimings AS ExpertContactTimings FROM Contact WHERE ExpertID=" . $expertID;
 
 //Query to fetch all area of expertise
 //$fetchAreaOfExpertiseQuery = 'SELECT distinct ea.Expert_AreaOfExpertiseID AS ExpertAreaOfExpertiseID, aoe.AreaOfExpertiseID AS AreaOfExpertiseID, aoe.Name AS AreaOfExpertiseName FROM AreaOfExpertise aoe, Expert_AreaOfExpertise ea WHERE ea.ExpertID='.$expertID.' AND ea.AreaOfExpertiseID=aoe.AreaOfExpertiseID';
@@ -142,13 +136,14 @@ while($row = sqlsrv_fetch_array($expertData)) {
 
 	<div id="p_scents">		
 			<?php
+				$contactLoopCount = 0;
 				while($row2 = sqlsrv_fetch_array($expertContact)) {
 					$expertContactID = $row2['ExpertContactID'];
 					$expertContactType = $row2['ExpertContactType'];
 					$expertContactDesc = $row2['ExpertContactDesc'];
 					$expertContactTimings = $row2['ExpertContactTimings'];
-					
-					echo '<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="' . $expertContactType . '" readonly/><input type="text" id="p_scnt" size="20" name="p_scnt" value="' . $expertContactDesc . '"/></label> <a href="#" id="remScnt">Remove</a></p>';
+					$contactLoopCount++;
+					echo '<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="ExpertContactType' . $contactLoopCount . '" value="' . $expertContactType . '" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' . $contactLoopCount . '" value="' . $expertContactDesc . '"/></label> <a href="#" id="remScnt">Remove</a></p>';
 				}
 			?>
 	</div>
@@ -159,37 +154,43 @@ while($row = sqlsrv_fetch_array($expertData)) {
 			var i = $('#p_scents p').size() + 1;
 			
 			$('#addPhone').live('click', function() {
-					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="Phone" readonly/><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="XXX-XXX-XXXX" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					<?php $contactLoopCount++; ?>
+					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="Phone" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="XXX-XXX-XXXX" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
 					i++;
 					return false;
 			});
 			
 			$('#addEmail').live('click', function() {
-					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="Email" readonly/><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="name@example.com" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					<?php $contactLoopCount++; ?>
+					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="Email" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="name@example.com" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
 					i++;
 					return false;
 			});
 			
 			$('#addLinkedIn').live('click', function() {
-					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="LinkedIn" readonly/><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					<?php $contactLoopCount++; ?>
+					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="LinkedIn" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
 					i++;
 					return false;
 			});
 			
 			$('#addFacebook').live('click', function() {
-					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="Facebook" readonly/><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					<?php $contactLoopCount++; ?>
+					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="Facebook" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
 					i++;
 					return false;
 			});
 			
 			$('#addTwitter').live('click', function() {
-					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="Twitter" readonly/><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					<?php $contactLoopCount++; ?>
+					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="Twitter" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
 					i++;
 					return false;
 			});
 			
 			$('#addGooglePlus').live('click', function() {
-					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="Google+" readonly/><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					<?php $contactLoopCount++; ?>
+					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="Google+" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
 					i++;
 					return false;
 			});
