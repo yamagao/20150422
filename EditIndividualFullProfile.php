@@ -209,6 +209,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
 ?>
 
 <input type="hidden" name="ContactLoopCount" value="<?php echo $contactLoopCount ?>"/>
+<br/>
 <p> Area of expertise: 
 <select id="expertise">
 	<?php
@@ -226,12 +227,13 @@ while($row = sqlsrv_fetch_array($expertData)) {
 <div id="AOE">		
 		<?php
 			$expertiseLoopCount = 0;
-			$fetchAreaOfExpertiseQuery = 'SELECT distinct aoe.Name AS AreaOfExpertise FROM AreaOfExpertise aoe, Expert_AreaOfExpertise ea WHERE ea.ExpertID='.$expertID.' AND ea.AreaOfExpertiseID=aoe.AreaOfExpertiseID';
+			$fetchAreaOfExpertiseQuery = 'SELECT distinct aoe.Name AS AreaOfExpertise, aoe.AreaOfExpertiseID  FROM AreaOfExpertise aoe, Expert_AreaOfExpertise ea WHERE ea.ExpertID='.$expertID.' AND ea.AreaOfExpertiseID=aoe.AreaOfExpertiseID';
 			$areaOfExpertise = sqlsrv_query( $connection, $fetchAreaOfExpertiseQuery);
 			$expertiseLoopCount++;
 			while($row4 = sqlsrv_fetch_array($areaOfExpertise)) {		
 				$expertAreaOfExpertise = $row4['AreaOfExpertise'];
-				echo '<p><label for="aoet"><input type="text" id="pscnt" size="20" name="Expertise' . $expertiseLoopCount . '" value="' . $expertAreaOfExpertise . '" readonly/></label> <a href="#" id="rem">Remove</a></p>';
+				$expertAreaOfExpertiseID = $row4['AreaOfExpertiseID'];
+				echo '<p><label for="aoet" style="display: block; width:400px;"><input type="hidden" id="pscnt" size="20" name="Expertise' . $expertiseLoopCount . '" value="' . $expertAreaOfExpertiseID . '"/>' . $expertAreaOfExpertise . '</label> <a href="#" id="rem">Remove</a></p>';
 			}
 		?>
 </div>
@@ -244,7 +246,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
 		$('#addExpertise').live('click', function() {
 				<?php $expertiseLoopCount++; ?>
 				//$('<p><label for="aoet"><input type="text" id="pscnt" size="20" name="ExpertContactType' + <?php echo $expertiseLoopCount; ?> + '" value="Phone" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $expertiseLoopCount; ?> + '" value="" placeholder="XXX-XXX-XXXX" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
-				$('<p><label for="aoet"><input type="text" id="pscnt" size="20" name="Expertise' + <?php echo $expertiseLoopCount; ?> + '" value="' + $('#expertise').val() + '" readonly/></label> <a href="#" id="rem">Remove</a></p>').appendTo(scntDiv);
+				$('<p><label for="aoet" style="display: block; width:400px;"><input type="hidden" id="pscnt" size="20" name="Expertise' + <?php echo $expertiseLoopCount; ?> + '" value="' + $('#expertise').val() + '" readonly/>' + $('#expertise option:selected').text() + '</label> <a href="#" id="rem">Remove</a></p>').appendTo(scntDiv);
 				i++;
 				return false;
 		});
