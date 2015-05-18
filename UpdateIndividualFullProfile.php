@@ -56,22 +56,30 @@ for($i = 1; $i <= $contactLoopCount; $i++)
 	sqlsrv_commit($connection);	
 }
 
-//Query to update all area of expertise
-$aoeLoopCount = $_POST["AOELoopCount"];
-for($j=1; $j<$aoeLoopCount; $j++)
+//Query to delete E_Aoe
+$updateExpertExpertiseQuery = "DELETE FROM Expert_AreaOfExpertise WHERE ExpertID = '" . $expertID . "';";
+$expertiseData = sqlsrv_query( $connection, $updateExpertExpertiseQuery);
+if( !$expertiseData ) {
+	die( print_r( sqlsrv_errors(), true));
+}
+
+//Query to insert E_Aoe
+$expertiseLoopCount = $_POST["ExpertiseLoopCount"];
+for($i = 1; $i <= $expertiseLoopCount; $i++)
 {	
-	$updateExpertAOEQuery = 'UPDATE Expert_AreaOfExpertise SET ExpertID='. $expertID . ', AreaOfExpertiseID='. $_POST['AOEID'.$j] .' WHERE Expert_AreaOfExpertiseID='.$_POST['ExpertAOEID'.$j].';';
+	if($_POST['Expertise'.$i] == null){
+		continue;
+	}
+	$updateExpertExpertiseQuery = "INSERT INTO Expert_AreaOfExpertise (ExpertID, AreaOfExpertiseID) VALUES ('" . $expertID . "', '" . $_POST['Expertise'.$i] ."');";
 	
-	$aoeData = sqlsrv_query( $connection, $updateExpertAOEQuery);
+	$expertiseData = sqlsrv_query( $connection, $updateExpertExpertiseQuery);
 	
-	if( !$aoeData ) {
+	if( !$expertiseData ) {
     	die( print_r( sqlsrv_errors(), true));
 	}
 	sqlsrv_commit($connection);	
-	
 }
 
-sqlsrv_commit($connection);	
 sqlsrv_close($connection);
 
 header("Location: IndividualFullProfile.php?expert_id=" . $expertID);
