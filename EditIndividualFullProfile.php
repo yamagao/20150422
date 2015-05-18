@@ -261,34 +261,6 @@ while($row = sqlsrv_fetch_array($expertData)) {
 	});	
 </script>
 <input type="hidden" name="ExpertiseLoopCount" value="<?php echo $expertiseLoopCount ?>"/>
-<?php
-
-// code written by binesh, just for checking the functionality
-
-$fetchAreaOfExpertiseQuery = 'SELECT distinct aoe.Name AS AreaOfExpertise FROM AreaOfExpertise aoe, Expert_AreaOfExpertise ea WHERE ea.ExpertID='.$expertID.' AND ea.AreaOfExpertiseID=aoe.AreaOfExpertiseID';
-
-$areaOfExpertise = sqlsrv_query( $connection, $fetchAreaOfExpertiseQuery);
-
-echo '<b>Area of Experties:</b>';
-
-
-while($row4 = sqlsrv_fetch_array($areaOfExpertise)) {		
-	$expertAreaOfExpertise = $row4['AreaOfExpertise'];
-	echo ('<br>'.$expertAreaOfExpertise);
-	echo ('<a onclick=>&nbsp; &nbsp; &nbsp; &nbsp; remove</a>');
-}
-
-// code by binesh ends.
-
-
-
-
-?>
-</select><br/>
-    
-<br>
-<input type="hidden" name="AOELoopCount" value="<?php echo $aoeLoopCount ?>"/>
-<br />
 
 <input type="submit" id="updateExpert" value="Update"/> 
 
