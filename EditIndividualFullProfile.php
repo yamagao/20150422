@@ -209,8 +209,51 @@ while($row = sqlsrv_fetch_array($expertData)) {
 ?>
 
 <input type="hidden" name="ContactLoopCount" value="<?php echo $contactLoopCount ?>"/>
-<p> Area of expertise: </p> <br />
+<p> Area of expertise: 
+<select id="expertise">
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="opel">Opel</option>
+  <option value="audi">Audi</option>
+</select>
+<a href="#" id="addExpertise"> Add</a></p>
 
+<div id="AOE">		
+		<?php
+			$expertiseLoopCount = 0;
+			$fetchAreaOfExpertiseQuery = 'SELECT distinct aoe.Name AS AreaOfExpertise FROM AreaOfExpertise aoe, Expert_AreaOfExpertise ea WHERE ea.ExpertID='.$expertID.' AND ea.AreaOfExpertiseID=aoe.AreaOfExpertiseID';
+			$areaOfExpertise = sqlsrv_query( $connection, $fetchAreaOfExpertiseQuery);
+			$expertiseLoopCount++;
+			while($row4 = sqlsrv_fetch_array($areaOfExpertise)) {		
+				$expertAreaOfExpertise = $row4['AreaOfExpertise'];
+				echo '<p><label for="aoet"><input type="text" id="pscnt" size="20" name="Expertise' . $expertiseLoopCount . '" value="' . $expertAreaOfExpertise . '" readonly/></label> <a href="#" id="rem">Remove</a></p>';
+			}
+		?>
+</div>
+
+<script type="text/javascript" language="javascript">
+	$(function() {
+		var scntDiv = $('#AOE');
+		var i = $('#AOE p').size() + 1;
+		
+		$('#addExpertise').live('click', function() {
+				<?php $expertiseLoopCount++; ?>
+				//$('<p><label for="aoet"><input type="text" id="pscnt" size="20" name="ExpertContactType' + <?php echo $expertiseLoopCount; ?> + '" value="Phone" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $expertiseLoopCount; ?> + '" value="" placeholder="XXX-XXX-XXXX" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+				$('<p><label for="aoet"><input type="hidden" id="pscnt" size="20" name="Expertise' + <?php echo $expertiseLoopCount; ?> + '" value="' + $('#expertise').val() + '" readonly/>' + $('#expertise').val() + '</label> <a href="#" id="rem">Remove</a></p>').appendTo(scntDiv);
+				i++;
+				return false;
+		});
+		
+		$('#rem').live('click', function() { 
+				if( i > 1 ) {
+						$(this).parents('p').remove();
+						i--;
+				}
+				return false;
+		});
+	});	
+</script>
+<input type="hidden" name="ExpertiseLoopCount" value="<?php echo $expertiseLoopCount ?>"/>
 <?php
 
 // code written by binesh, just for checking the functionality
