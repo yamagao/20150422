@@ -33,7 +33,7 @@ if( !$expertData ) {
 
 //Query to update contact
 $contactLoopCount = $_POST["ContactLoopCount"];
-for($i=1; $i<$contactLoopCount; $i++)
+for($i = 1; $i <= $contactLoopCount; $i++)
 {	
 	$updateExpertContactQuery = 'UPDATE Contact SET ContactType=\''. $_POST['ExpertContactType'.$i] .'\', ContactDesc=\''. $_POST['ExpertContactDesc'.$i] .'\', ContactTimings=\''. $_POST['ExpertContactTimings'.$i] .'\' WHERE ContactID='.$_POST['ExpertContactID'.$i].' AND ExpertID='.$expertID.';';
 	
