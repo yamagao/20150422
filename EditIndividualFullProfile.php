@@ -229,8 +229,8 @@ while($row = sqlsrv_fetch_array($expertData)) {
 			$expertiseLoopCount = 0;
 			$fetchAreaOfExpertiseQuery = 'SELECT distinct aoe.Name AS AreaOfExpertise, aoe.AreaOfExpertiseID  FROM AreaOfExpertise aoe, Expert_AreaOfExpertise ea WHERE ea.ExpertID='.$expertID.' AND ea.AreaOfExpertiseID=aoe.AreaOfExpertiseID';
 			$areaOfExpertise = sqlsrv_query( $connection, $fetchAreaOfExpertiseQuery);
-			$expertiseLoopCount++;
-			while($row4 = sqlsrv_fetch_array($areaOfExpertise)) {		
+			while($row4 = sqlsrv_fetch_array($areaOfExpertise)) {
+				$expertiseLoopCount++;				
 				$expertAreaOfExpertise = $row4['AreaOfExpertise'];
 				$expertAreaOfExpertiseID = $row4['AreaOfExpertiseID'];
 				echo '<p><label for="aoet" style="display: block; width:400px;"><input type="hidden" id="pscnt" size="20" name="Expertise' . $expertiseLoopCount . '" value="' . $expertAreaOfExpertiseID . '"/>' . $expertAreaOfExpertise . '</label> <a href="#" id="rem">Remove</a></p>';
