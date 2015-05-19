@@ -143,7 +143,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
 					$expertContactDesc = $row2['ExpertContactDesc'];
 					$expertContactTimings = $row2['ExpertContactTimings'];
 					$contactLoopCount++;
-					echo '<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="ExpertContactType' . $contactLoopCount . '" value="' . $expertContactType . '" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' . $contactLoopCount . '" value="' . $expertContactDesc . '"/></label> <a href="#" id="remScnt">Remove</a></p>';
+					echo '<p><input type="text" id="p_scnt" size="20" name="ExpertContactType' . $contactLoopCount . '" value="' . $expertContactType . '" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' . $contactLoopCount . '" value="' . $expertContactDesc . '"/><a href="#" id="remScnt">Remove</a></p>';
 				}
 			?>
 	</div>
@@ -155,42 +155,42 @@ while($row = sqlsrv_fetch_array($expertData)) {
 			
 			$('#addPhone').live('click', function() {
 					<?php $contactLoopCount++; ?>
-					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="Phone" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="XXX-XXX-XXXX" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					$('<p><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="Phone" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="XXX-XXX-XXXX" /><a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
 					i++;
 					return false;
 			});
 			
 			$('#addEmail').live('click', function() {
 					<?php $contactLoopCount++; ?>
-					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="Email" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="name@example.com" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					$('<p><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="Email" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="name@example.com" /><a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
 					i++;
 					return false;
 			});
 			
 			$('#addLinkedIn').live('click', function() {
 					<?php $contactLoopCount++; ?>
-					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="LinkedIn" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					$('<p><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="LinkedIn" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="http://" /><a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
 					i++;
 					return false;
 			});
 			
 			$('#addFacebook').live('click', function() {
 					<?php $contactLoopCount++; ?>
-					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="Facebook" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					$('<p><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="Facebook" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="http://" /><a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
 					i++;
 					return false;
 			});
 			
 			$('#addTwitter').live('click', function() {
 					<?php $contactLoopCount++; ?>
-					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="Twitter" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					$('<p><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="Twitter" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="http://" /><a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
 					i++;
 					return false;
 			});
 			
 			$('#addGooglePlus').live('click', function() {
 					<?php $contactLoopCount++; ?>
-					$('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="Google+" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="http://" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+					$('<p><input type="text" id="p_scnt" size="20" name="ExpertContactType' + <?php echo $contactLoopCount; ?> + '" value="Google+" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $contactLoopCount; ?> + '" value="" placeholder="http://" /><a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
 					i++;
 					return false;
 			});
@@ -208,7 +208,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
 }
 ?>
 
-<input type="hidden" name="ContactLoopCount" value="<?php echo $contactLoopCount ?>"/>
+<input type="hidden" name="ContactLoopCount" value="<?php echo $contactLoopCount; ?>"/>
 <br/>
 <p> Area of expertise: 
 <select id="expertise">
@@ -233,7 +233,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
 				$expertiseLoopCount++;				
 				$expertAreaOfExpertise = $row4['AreaOfExpertise'];
 				$expertAreaOfExpertiseID = $row4['AreaOfExpertiseID'];
-				echo '<p><label for="aoet" style="display: block; width:400px;"><input type="hidden" id="pscnt" size="20" name="Expertise' . $expertiseLoopCount . '" value="' . $expertAreaOfExpertiseID . '"/>' . $expertAreaOfExpertise . '</label> <a href="#" id="rem">Remove</a></p>';
+				echo '<p><label for="pscnt" style="display: block; width:400px;"><input type="hidden" id="pscnt" size="20" name="Expertise' . $expertiseLoopCount . '" value="' . $expertAreaOfExpertiseID . '"/>' . $expertAreaOfExpertise . '</label> <a href="#" id="rem">Remove</a></p>';
 			}
 		?>
 </div>
@@ -241,26 +241,24 @@ while($row = sqlsrv_fetch_array($expertData)) {
 <script type="text/javascript" language="javascript">
 	$(function() {
 		var scntDiv = $('#AOE');
-		var i = $('#AOE p').size() + 1;
+		var j = $('#AOE p').size() + 1;
 		
 		$('#addExpertise').live('click', function() {
-				<?php $expertiseLoopCount++; ?>
-				//$('<p><label for="aoet"><input type="text" id="pscnt" size="20" name="ExpertContactType' + <?php echo $expertiseLoopCount; ?> + '" value="Phone" readonly/><input type="text" id="p_scnt" size="20" name="ExpertContactDesc' + <?php echo $expertiseLoopCount; ?> + '" value="" placeholder="XXX-XXX-XXXX" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
-				$('<p><label for="aoet" style="display: block; width:400px;"><input type="hidden" id="pscnt" size="20" name="Expertise' + <?php echo $expertiseLoopCount; ?> + '" value="' + $('#expertise').val() + '" readonly/>' + $('#expertise option:selected').text() + '</label> <a href="#" id="rem">Remove</a></p>').appendTo(scntDiv);
-				i++;
+				$('<p><label for="pscnt" style="display: block; width:400px;"><input type="hidden" id="pscnt" size="20" name="Expertise' + j + '" value="' + $('#expertise').val() + '" readonly/>' + $('#expertise option:selected').text() + '</label> <a href="#" id="rem">Remove</a></p>').appendTo(scntDiv);
+				j++;
 				return false;
 		});
 		
 		$('#rem').live('click', function() { 
-				if( i > 1 ) {
+				if( j > 1 ) {
 						$(this).parents('p').remove();
-						i--;
+						j--;
 				}
 				return false;
 		});
 	});	
 </script>
-<input type="hidden" name="ExpertiseLoopCount" value="<?php echo $expertiseLoopCount ?>"/>
+<input type="hidden" name="ExpertiseLoopCount" value="<?php echo $expertiseLoopCount; ?>"/>
 
 <input type="submit" id="updateExpert" value="Update"/> 
 
