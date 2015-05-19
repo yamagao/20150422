@@ -65,7 +65,7 @@ if( !$expertiseData ) {
 
 //Query to insert E_Aoe
 $expertiseLoopCount = $_POST["ExpertiseLoopCount"];
-for($i = 1; $i <= $expertiseLoopCount; $i++)
+for($i = 1; $i <= 10; $i++)//$expertiseLoopCount
 {	
 	if($_POST['Expertise'.$i] == null){
 		continue;
