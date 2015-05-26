@@ -17,10 +17,32 @@ require_once 'DatabaseConnection.php';
 <h2>Area of expertise</h2>
 
 <h3>Add List</h3>
-<p><input type="text"> <a href="#" id="addAreaOfExpertise">Add to Add List</a></p>
+<p><input type="text" id="expertise2add"> <a href="#" id="addAreaOfExpertise">Add to Add List</a></p>
+<div id="AAOE">		
+</div>
+<script type="text/javascript" language="javascript">
+	$(function() {
+		var scntDivAdd = $('#AAOE');
+		var i = $('#AAOE p').size() + 1;
+		
+		$('#addAreaOfExpertise').live('click', function() {
+				$('<p><label for="pscnt" style="display: block; width:400px;"><input type="hidden" id="pscnt" size="20" name="addExpertise' + i + '" value="' + $('#expertise2add').val() + '" readonly/>' + $('#expertise2add').val() + '</label> <a href="#" id="remA">Remove</a></p>').appendTo(scntDivAdd);
+				i++;
+				return false;
+		});
+		
+		$('#remA').live('click', function() { 
+				if( i > 1 ) {
+						$(this).parents('p').remove();
+						i--;
+				}
+				return false;
+		});
+	});	
+</script>
 
 <h3>Delete List</h3>
-<p><select id="expertise">
+<p><select id="expertise2delete">
 	<?php
 		$fetchExpertiseQuery = 'SELECT AreaOfExpertiseID, Name FROM AreaOfExpertise';
 		$Expertise = sqlsrv_query( $connection, $fetchExpertiseQuery);
@@ -33,32 +55,21 @@ require_once 'DatabaseConnection.php';
 </select> <a href="#" id="deleteAreaOfExpertise">Add to Delete List</a></p>
 
 
-<div id="AOE">		
-		<?php
-			$expertiseLoopCount = 0;
-			$fetchAreaOfExpertiseQuery = 'SELECT distinct aoe.Name AS AreaOfExpertise, aoe.AreaOfExpertiseID  FROM AreaOfExpertise aoe, Expert_AreaOfExpertise ea WHERE ea.ExpertID='.$expertID.' AND ea.AreaOfExpertiseID=aoe.AreaOfExpertiseID';
-			$areaOfExpertise = sqlsrv_query( $connection, $fetchAreaOfExpertiseQuery);
-			while($row4 = sqlsrv_fetch_array($areaOfExpertise)) {
-				$expertiseLoopCount++;				
-				$expertAreaOfExpertise = $row4['AreaOfExpertise'];
-				$expertAreaOfExpertiseID = $row4['AreaOfExpertiseID'];
-				echo '<p><label for="pscnt" style="display: block; width:400px;"><input type="hidden" id="pscnt" size="20" name="Expertise' . $expertiseLoopCount . '" value="' . $expertAreaOfExpertiseID . '"/>' . $expertAreaOfExpertise . '</label> <a href="#" id="rem">Remove</a></p>';
-			}
-		?>
+<div id="DAOE">		
 </div>
 
 <script type="text/javascript" language="javascript">
 	$(function() {
-		var scntDiv = $('#AOE');
-		var j = $('#AOE p').size() + 1;
+		var scntDivDelete = $('#DAOE');
+		var j = $('#DAOE p').size() + 1;
 		
 		$('#deleteAreaOfExpertise').live('click', function() {
-				$('<p><label for="pscnt" style="display: block; width:400px;"><input type="hidden" id="pscnt" size="20" name="Expertise' + j + '" value="' + $('#expertise').val() + '" readonly/>' + $('#expertise option:selected').text() + '</label> <a href="#" id="rem">Remove</a></p>').appendTo(scntDiv);
+				$('<p><label for="pscnt" style="display: block; width:400px;"><input type="hidden" id="pscnt" size="20" name="deleteExpertise' + j + '" value="' + $('#expertise2delete').val() + '" readonly/>' + $('#expertise2delete option:selected').text() + '</label> <a href="#" id="remD">Remove</a></p>').appendTo(scntDivDelete);
 				j++;
 				return false;
 		});
 		
-		$('#rem').live('click', function() { 
+		$('#remD').live('click', function() { 
 				if( j > 1 ) {
 						$(this).parents('p').remove();
 						j--;
@@ -67,7 +78,7 @@ require_once 'DatabaseConnection.php';
 		});
 	});	
 </script>
-<input type="hidden" name="ExpertiseLoopCount" value="<?php echo $expertiseLoopCount; ?>"/>
+
 
 <input type="submit" id="updateExpert" value="Update"/> 
 
