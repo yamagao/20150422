@@ -222,7 +222,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
 		}
 	?>
 </select>
-<a href="#" id="addExpertise"> Add</a></p>
+<a href="#" id="addExpertise"> Add</a> &nbsp; &nbsp; <a href="EditAreaOfExpertise.php"> Edit List(doesnt work yet)</a></p>
 
 <div id="AOE">		
 		<?php
