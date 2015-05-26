@@ -70,7 +70,7 @@ for($i = 1; $i <= 10; $i++)//$expertiseLoopCount
 	if($_POST['Expertise'.$i] == null){
 		continue;
 	}
-	$updateExpertExpertiseQuery = "INSERT INTO Expert_AreaOfExpertise (ExpertID, AreaOfExpertiseID) VALUES ('" . $expertID . "', '" . $_POST['Expertise'.$i] ."');";
+	$updateExpertExpertiseQuery = "IF NOT EXISTS (SELECT * FROM Expert_AreaOfExpertise WHERE ExpertID = " . $expertID . " AND AreaOfExpertiseID = " . $_POST['Expertise'.$i] . ") INSERT INTO Expert_AreaOfExpertise (ExpertID, AreaOfExpertiseID) VALUES ('" . $expertID . "', '" . $_POST['Expertise'.$i] ."');";
 	
 	$expertiseData = sqlsrv_query( $connection, $updateExpertExpertiseQuery);
 	
