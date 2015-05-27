@@ -267,6 +267,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
 sqlsrv_close($connection);
 ?>
 </form>
+<p><a href="IndividualFullProfile.php?expert_id=<?php echo $expertID;?>">Back to Profile Page</a></p>
 </body>
 
 </html>
