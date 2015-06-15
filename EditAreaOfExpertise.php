@@ -79,6 +79,70 @@ require_once 'DatabaseConnection.php';
 	});	
 </script>
 
+<h2>Experts</h2>
+
+<h3>Add List</h3>
+<p><input type="text" id="experts2add"> <a href="#" id="addExperts">Add to Add List</a></p>
+<div id="AE">		
+</div>
+<script type="text/javascript" language="javascript">
+	$(function() {
+		var scntDivAdd = $('#AE');
+		var i = $('#AE p').size() + 1;
+		
+		$('#addExperts').live('click', function() {
+				$('<p><label for="pscnt" style="display: block; width:400px;"><input type="hidden" id="pscnt" size="20" name="addExpert' + i + '" value="' + $('#experts2add').val() + '" readonly/>' + $('#experts2add').val() + '</label> <a href="#" id="remAdd">Remove</a></p>').appendTo(scntDivAdd);
+				i++;
+				return false;
+		});
+		
+		$('#remAdd').live('click', function() { 
+				if( i > 1 ) {
+						$(this).parents('p').remove();
+						i--;
+				}
+				return false;
+		});
+	});	
+</script>
+
+<h3>Delete List</h3>
+<p><select id="experts2delete">
+	<?php
+		$fetchExpertsQuery = 'SELECT ExpertID, FirstName, LastName FROM ExpertBiodata';
+		$Experts = sqlsrv_query( $connection, $fetchExpertsQuery);
+		while($row6 = sqlsrv_fetch_array($Experts)) {		
+			$ExpertID = $row6['ExpertID'];
+			$ExpertName = $row6['FirstName'] . $row6['LastName'];
+			echo '<option value="' . $ExpertID . '">' . $ExpertName . '</option>';
+		}
+	?>
+</select> <a href="#" id="deleteExperts">Add to Delete List</a></p>
+
+
+<div id="DE">		
+</div>
+
+<script type="text/javascript" language="javascript">
+	$(function() {
+		var scntDivDelete = $('#DE');
+		var j = $('#DE p').size() + 1;
+		
+		$('#deleteExperts').live('click', function() {
+				$('<p><label for="pscnt" style="display: block; width:400px;"><input type="hidden" id="pscnt" size="20" name="deleteExpert' + j + '" value="' + $('#experts2delete').val() + '" readonly/>' + $('#experts2delete option:selected').text() + '</label> <a href="#" id="remDelete">Remove</a></p>').appendTo(scntDivDelete);
+				j++;
+				return false;
+		});
+		
+		$('#remDelete').live('click', function() { 
+				if( j > 1 ) {
+						$(this).parents('p').remove();
+						j--;
+				}
+				return false;
+		});
+	});	
+</script>
 
 <input type="submit" id="updateExpert" value="Update"/> 
 
@@ -87,6 +151,7 @@ require_once 'DatabaseConnection.php';
 sqlsrv_close($connection);
 ?>
 </form>
+<p><a href="testYQ.php">Back to Search</a></p>
 </body>
 
 </html>
