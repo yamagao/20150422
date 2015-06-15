@@ -113,7 +113,7 @@ require_once 'DatabaseConnection.php';
 		$Experts = sqlsrv_query( $connection, $fetchExpertsQuery);
 		while($row6 = sqlsrv_fetch_array($Experts)) {		
 			$ExpertID = $row6['ExpertID'];
-			$ExpertName = $row6['FirstName'] . $row6['LastName'];
+			$ExpertName = $row6['FirstName'] . " " . $row6['LastName'];
 			echo '<option value="' . $ExpertID . '">' . $ExpertName . '</option>';
 		}
 	?>
