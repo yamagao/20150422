@@ -53,6 +53,42 @@ for($i = 1; $i <= 10; $i++)
 	sqlsrv_commit($connection);	
 }
 
+//Query to insert Experts
+for($i = 1; $i <= 10; $i++)
+{	
+	if($_POST['addExpert'.$i] == null){
+		continue;
+	}
+	
+	$ExpertCur = explode(" ", $_POST['addExpert'.$i]);
+	$insertE = "IF NOT EXISTS (SELECT * FROM ExpertBiodata WHERE FirstName = '" . str_replace("'","''",$ExpertCur[0]) . "' and LastName = '" . str_replace("'","''",$ExpertCur[1]) . "') INSERT INTO ExpertBiodata (FirstName, LastName) VALUES ('" . str_replace("'","''",$ExpertCur[0]) ."', '" . str_replace("'","''",$ExpertCur[1]) ."');";
+	
+	$eData = sqlsrv_query( $connection, $insertE);
+	
+	if( !$eData ) {
+    	die( print_r( sqlsrv_errors(), true));
+	}
+	sqlsrv_commit($connection);	
+}
+
+//Query to delete AreaOfExpertis
+for($i = 1; $i <= 10; $i++)
+{	
+	if($_POST['deleteExpert'.$i] == null){
+		continue;
+	}
+	$deleteE = "DELETE FROM ExpertBiodata WHERE ExpertID = '" . str_replace("'","''",$_POST['deleteExpert'.$i]) . "';
+				DELETE FROM Expert_AreaOfExpertise WHERE ExpertID = '" . str_replace("'","''",$_POST['deleteExpert'.$i]) . "';
+				DELETE FROM Contact WHERE ExpertID = '" . str_replace("'","''",$_POST['deleteExpert'.$i]) . "';";
+	
+	$expertData = sqlsrv_query( $connection, $deleteE);
+	
+	if( !$expertData ) {
+    	die( print_r( sqlsrv_errors(), true));
+	}
+	sqlsrv_commit($connection);	
+}
+
 sqlsrv_close($connection);
 
 header("Location: EditAreaOfExpertise.php");
