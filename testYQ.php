@@ -100,7 +100,7 @@ if($_GET["expertise"] != ""){
 	$expertise = $_GET["expertise"];
 	//$lastName = $_GET["lastName"];
 	//$firstName = $_GET["firstName"];
-	$areaOfExpertise = sqlsrv_query( $connection, 'SELECT AreaOfExpertiseID, Name FROM AreaOfExpertise WHERE Name LIKE \'' . $expertise . '%\'');
+	$areaOfExpertise = sqlsrv_query( $connection, 'SELECT AreaOfExpertiseID, Name FROM AreaOfExpertise WHERE Name LIKE \'' . $expertise . '%\' ORDER BY Name');
 	$resultFlag = false;
 	while($row1 = sqlsrv_fetch_array($areaOfExpertise)) {
 		if (!$resultFlag)
@@ -109,7 +109,7 @@ if($_GET["expertise"] != ""){
 		echo '<br>';
 		echo '<b>'.$row1['Name'].'</b>';
 
-		$fetchExpertDataQuery ="SELECT ea.ExpertID, LastName, FirstName, Title, AddressLine1, AddressLine2 FROM Expert_AreaOfExpertise ea, ExpertBiodata b WHERE ea.ExpertID = b.ExpertID AND ea.AreaOfExpertiseID = " . $areaOfExpertiseID;
+		$fetchExpertDataQuery ="SELECT ea.ExpertID, LastName, FirstName, Title, AddressLine1, AddressLine2 FROM Expert_AreaOfExpertise ea, ExpertBiodata b WHERE ea.ExpertID = b.ExpertID AND ea.AreaOfExpertiseID = " . $areaOfExpertiseID . " ORDER BY FirstName";
 		
 		$expertData = sqlsrv_query( $connection, $fetchExpertDataQuery);	
 		
@@ -118,9 +118,9 @@ if($_GET["expertise"] != ""){
 			echo '<br><br>';
 			
 			//$photoQuery = sqlsrv_query($connection, "SELECT PhotoURL FROM Photo WHERE ExpertID = " . $expertID);
-			$filename = 'images/experts/thumbnail/' . $row1['FirstName'] . '-' . $row1['LastName'] . '.jpg';
+			$filename = 'images/experts/thumbnail/' . $row2['FirstName'] . '-' . $row2['LastName'] . '.jpg';
 			if(file_exists($filename)){
-				echo '<a href="IndividualFullProfile.php?expert_id='.$expertID.'"><img src="' . $filename . '" alt="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" title="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" height="180" width="150"></a><br>';
+				echo '<a href="IndividualFullProfile.php?expert_id='.$expertID.'"><img src="' . $filename . '" alt="'. $row2['FirstName'] . ' ' . $row2['LastName'] .'" title="'. $row2['FirstName'] . ' ' . $row2['LastName'] .'" height="180" width="150"></a><br>';
 			}
 			else{
 				echo '<img src="images/experts/thumbnail/placeholder.jpg" height="180" width="150"><br>';
@@ -144,7 +144,7 @@ if($_GET["expertise"] != ""){
 
 if($_GET["lastName"] != ""){
 	$lastName = $_GET["lastName"];
-	$lastNameList = sqlsrv_query( $connection, 'SELECT ExpertID, LastName, FirstName, Title, AddressLine1, AddressLine2 FROM ExpertBiodata WHERE LastName LIKE \'' . $lastName . '%\'');
+	$lastNameList = sqlsrv_query( $connection, 'SELECT ExpertID, LastName, FirstName, Title, AddressLine1, AddressLine2 FROM ExpertBiodata WHERE LastName LIKE \'' . $lastName . '%\' ORDER BY LastName');
 	$resultFlag = false;	
 	while($row1 = sqlsrv_fetch_array($lastNameList)) {
 		if (!$resultFlag)
@@ -188,7 +188,7 @@ if($_GET["lastName"] != ""){
 
 if($_GET["firstName"] != ""){
 	$firstName = $_GET["firstName"];
-	$firstNameList = sqlsrv_query( $connection, 'SELECT ExpertID, LastName, FirstName, Title, AddressLine1, AddressLine2 FROM ExpertBiodata WHERE FirstName LIKE \'' . $firstName . '%\'');
+	$firstNameList = sqlsrv_query( $connection, 'SELECT ExpertID, LastName, FirstName, Title, AddressLine1, AddressLine2 FROM ExpertBiodata WHERE FirstName LIKE \'' . $firstName . '%\' ORDER BY FirstName');
 	$resultFlag = false;
 	while($row1 = sqlsrv_fetch_array($firstNameList)) {
 		if (!$resultFlag)
