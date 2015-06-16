@@ -44,7 +44,7 @@ require_once 'DatabaseConnection.php';
 <h3>Delete List</h3>
 <p><select id="expertise2delete">
 	<?php
-		$fetchExpertiseQuery = 'SELECT AreaOfExpertiseID, Name FROM AreaOfExpertise';
+		$fetchExpertiseQuery = 'SELECT AreaOfExpertiseID, Name FROM AreaOfExpertise ORDER BY Name';
 		$Expertise = sqlsrv_query( $connection, $fetchExpertiseQuery);
 		while($row5 = sqlsrv_fetch_array($Expertise)) {		
 			$ExpertiseID = $row5['AreaOfExpertiseID'];
@@ -109,7 +109,7 @@ require_once 'DatabaseConnection.php';
 <h3>Delete List</h3>
 <p><select id="experts2delete">
 	<?php
-		$fetchExpertsQuery = 'SELECT ExpertID, FirstName, LastName FROM ExpertBiodata';
+		$fetchExpertsQuery = 'SELECT ExpertID, FirstName, LastName FROM ExpertBiodata ORDER BY FirstName';
 		$Experts = sqlsrv_query( $connection, $fetchExpertsQuery);
 		while($row6 = sqlsrv_fetch_array($Experts)) {		
 			$ExpertID = $row6['ExpertID'];
