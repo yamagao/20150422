@@ -213,7 +213,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
 <p> Area of expertise: 
 <select id="expertise">
 	<?php
-		$fetchExpertiseQuery = 'SELECT AreaOfExpertiseID, Name FROM AreaOfExpertise';
+		$fetchExpertiseQuery = 'SELECT AreaOfExpertiseID, Name FROM AreaOfExpertise ORDER BY Name';
 		$Expertise = sqlsrv_query( $connection, $fetchExpertiseQuery);
 		while($row5 = sqlsrv_fetch_array($Expertise)) {		
 			$ExpertiseID = $row5['AreaOfExpertiseID'];
@@ -222,7 +222,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
 		}
 	?>
 </select>
-<a href="#" id="addExpertise"> Add</a> &nbsp; &nbsp; <a href="EditAreaOfExpertise.php?expert_id=<?php echo $expertID;?>"> Edit List</a></p>
+<a href="#" id="addExpertise"> Add</a> &nbsp; &nbsp; <a href="EditAreaOfExpertise.php"> Edit List</a></p>
 
 <div id="AOE">		
 		<?php
