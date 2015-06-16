@@ -137,8 +137,8 @@ sqlsrv_close($connection);
 
 <input type="hidden" name="ExpertID" value=<?php echo $expertID;?> />
 <input type="submit" name="editExpert" value="Edit"/>
-<p><a href="testYQ.php">Back to Search</a></p>
 </div>
+<?php require_once 'searchBy.php'; ?>
     </div>
       </div>
 <!--========================================Footer  and Footer Resources Area========================-->
