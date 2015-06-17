@@ -267,6 +267,17 @@ while($row = sqlsrv_fetch_array($expertData)) {
 sqlsrv_close($connection);
 ?>
 </form>
+
+
+<form action="upload_photo_thumb.php" method="post" enctype="multipart/form-data">
+<span>Update Thumbnail(150 X 180): </span><input type="file" onchange="this.form.submit()" name="pictures[]" multiple>
+</form>
+
+<form action="upload_photo_large.php" method="post" enctype="multipart/form-data">
+<span>Update Large Photo (550 X 367): </span><input type="file" onchange="this.form.submit()" name="pictures[]" multiple>
+</form>
+
+
 <p><a href="IndividualFullProfile.php?expert_id=<?php echo $expertID;?>">Back to Profile Page</a></p>
 </body>
 
