@@ -1,7 +1,7 @@
 <?php
 
 //----upload images to temp folder "images/temp/"
-$allowedExts = array("gif", "jpeg", "jpg", "png","GIF","JPEG","JPG","PNG");
+$allowedExts = array("jpg","JPG");
 $exceedFlag = 0;
 foreach ($_FILES["pictures"]["type"] as $key => $type){
 	$exceedFlag = 1;
