@@ -57,7 +57,7 @@
 $expertID = $_GET["expert_id"];
 ?>
 
-<form action="EditIndividualFullProfile.php" method="POST">
+
 <h1>UF/IFAS Faculty Experts</h1>
 <?php
 require_once 'DatabaseConnection.php';
@@ -80,7 +80,14 @@ if($row1 = sqlsrv_fetch_array($firstNameList)){
 		echo '<img src="images/experts/thumbnail/placeholder.jpg"><br>';
 	}
 }
+?>
 
+<form action="upload_photo_thumb.php" method="post" enctype="multipart/form-data">
+<span>Update Thumbnail(150 X 180): </span><input type="file" onchange="this.form.submit()" name="pictures[]" multiple>
+<input type="hidden" name="expertID" value="<?php echo $expertID;?>">
+</form>
+
+<?php
 //Query to fetch Expert Bio data
 $fetchExpertDataQuery = 'SELECT distinct Prefix AS ExpertPrefix, FirstName AS ExpertFirstName, MiddleName AS ExpertMiddleName, LastName AS ExpertLastName, Suffix AS ExpertSuffix, Degree AS ExpertDegree, Title AS ExpertTitle, ProfileDesc AS ExpertProfileDesc, AddressLine1 AS ExpertAddress1, AddressLine2 AS ExpertAddress2, AddressLine3 AS ExpertAddress3 FROM ExpertBioData WHERE ExpertID='.$expertID;
 
@@ -134,7 +141,7 @@ while($row4 = sqlsrv_fetch_array($areaOfExpertise)) {
 
 sqlsrv_close($connection);
 ?>
-
+<form action="EditIndividualFullProfile.php" method="POST">
 <input type="hidden" name="ExpertID" value=<?php echo $expertID;?> />
 <input type="submit" name="editExpert" value="Edit"/>
 </div>
