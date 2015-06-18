@@ -71,7 +71,7 @@ for($i = 1; $i <= 10; $i++)
 	sqlsrv_commit($connection);	
 }
 
-//Query to delete AreaOfExpertis
+//Query to delete Experts
 for($i = 1; $i <= 10; $i++)
 {	
 	if($_POST['deleteExpert'.$i] == null){
@@ -80,6 +80,9 @@ for($i = 1; $i <= 10; $i++)
 	$deleteE = "DELETE FROM ExpertBiodata WHERE ExpertID = '" . str_replace("'","''",$_POST['deleteExpert'.$i]) . "';
 				DELETE FROM Expert_AreaOfExpertise WHERE ExpertID = '" . str_replace("'","''",$_POST['deleteExpert'.$i]) . "';
 				DELETE FROM Contact WHERE ExpertID = '" . str_replace("'","''",$_POST['deleteExpert'.$i]) . "';";
+	
+	unlink("images/experts/thumbnail/". str_replace("'","''",$_POST['deleteExpert'.$i]) . ".jpg");
+	unlink("images/experts/large/". str_replace("'","''",$_POST['deleteExpert'.$i]) . ".jpg");
 	
 	$expertData = sqlsrv_query( $connection, $deleteE);
 	
