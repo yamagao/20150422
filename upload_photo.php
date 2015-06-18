@@ -45,6 +45,7 @@ foreach ($_FILES["pictures"]["type"] as $key => $type){
 		"<h1>Failed to upload <span><br>". 
 		$_FILES["pictures"]["name"][$key] .":&nbsp;Invalid file or it exceeds the maximum upload file size</span></h1> <br><br>";
 	}
+	break;
 }
 
 if($exceedFlag == 0){
