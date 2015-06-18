@@ -35,7 +35,7 @@ foreach ($_FILES["pictures"]["type"] as $key => $type){
 			move_uploaded_file($_FILES["pictures"]["tmp_name"][$key],"images/experts/" . $_POST["dir"] . $_POST["expertID"] . "." . $extension);
 			//echo "Stored in: " . "upload/" . $_FILES["pictures"]["name"][$key] . "<br><br>";
 			echo "Type: " . $type . "<br>";
-			echo "Size: " . round($_FILES["pictures"]["size"][$key] / 1024 / 1024 , 2) . " MB<br><br>";
+			echo "Size: " . round($_FILES["pictures"]["size"][$key] / 1024 , 2) . " KB<br><br>";
 			//echo "Temp file: " . $_FILES["pictures"]["tmp_name"][$key] . "<br>";
 		}
 	} else {
