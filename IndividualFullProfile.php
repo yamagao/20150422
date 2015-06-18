@@ -68,7 +68,7 @@ if($row1 = sqlsrv_fetch_array($firstNameList)){
 	//$filename = 'images/experts/large/' . $row1['FirstName'] . '-' . $row1['LastName'] . '.jpg';
 	$filename = 'images/experts/large/' . $expertID . '.jpg';
 	if(file_exists($filename)){
-		echo '<img src="' . $filename . '" alt="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" title="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'"><br>';
+		echo '<img src="' . $filename . '" alt="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" title="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" height="367" width="550"><br>';
 	}
 	else{
 		echo '<img src="images/experts/large/placeholder.jpg"><br>';
@@ -83,7 +83,7 @@ if($row1 = sqlsrv_fetch_array($firstNameList)){
 	//$filename = 'images/experts/thumbnail/' . $row1['FirstName'] . '-' . $row1['LastName'] . '.jpg';
 	$filename = 'images/experts/thumbnail/' . $expertID . '.jpg';
 	if(file_exists($filename)){
-		echo '<img src="' . $filename . '" alt="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" title="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'"><br>';
+		echo '<img src="' . $filename . '" alt="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" title="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" width="150" height="180"><br>';
 	}
 	else{
 		echo '<img src="images/experts/thumbnail/placeholder.jpg"><br>';
