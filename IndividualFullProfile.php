@@ -75,7 +75,7 @@ if($row1 = sqlsrv_fetch_array($firstNameList)){
 	}
 	?>
 	<form action="upload_photo.php" method="post" enctype="multipart/form-data">
-	<span>Update Large Photo (550 X 367): </span><input type="file" onchange="this.form.submit()" name="pictures[]" multiple>
+	<span>Update Large Photo (550 X 367 Maximum Size: 350 KB): </span><input type="file" onchange="this.form.submit()" name="pictures[]" multiple>
 	<input type="hidden" name="dir" value="large/">
 	<input type="hidden" name="expertID" value="<?php echo $expertID;?>">
 	</form>
@@ -92,7 +92,7 @@ if($row1 = sqlsrv_fetch_array($firstNameList)){
 ?>
 
 <form action="upload_photo.php" method="post" enctype="multipart/form-data">
-<span>Update Thumbnail(150 X 180): </span><input type="file" onchange="this.form.submit()" name="pictures[]" multiple>
+<span>Update Thumbnail(150 X 180 Maximum Size: 50 KB): </span><input type="file" onchange="this.form.submit()" name="pictures[]" multiple>
 <input type="hidden" name="dir" value="thumbnail/">
 <input type="hidden" name="expertID" value="<?php echo $expertID;?>">
 </form>
