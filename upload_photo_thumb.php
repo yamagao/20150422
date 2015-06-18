@@ -19,14 +19,14 @@ foreach ($_FILES["pictures"]["type"] as $key => $type){
 		if ($_FILES["pictures"]["error"][$key] > 0) {
 			echo "Return Code: " . $_FILES["pictures"]["error"][$key] . "<br><br>";
 		} else {		
-			if (file_exists("images/experts/thumbnail/" . $_POST["expertID"] . "." . $extension)) {
+			if (file_exists("images/experts/" . $_POST["dir"] . $_POST["expertID"] . "." . $extension)) {
 				echo "<strong style='font-size:1rem;'>".$_FILES["pictures"]["name"][$key] . 
 				"</strong>: <br>Already exists, successfully updated". "<br>";
 			} else {
 				echo "<strong style='font-size:1rem;'>".$_FILES["pictures"]["name"][$key] . 
 				"</strong>: <br>Successfully uploaded". "<br>";				
 			}
-			move_uploaded_file($_FILES["pictures"]["tmp_name"][$key],"images/experts/thumbnail/" . $_POST["expertID"] . "." . $extension);
+			move_uploaded_file($_FILES["pictures"]["tmp_name"][$key],"images/experts/" . $_POST["dir"] . $_POST["expertID"] . "." . $extension);
 			//echo "Stored in: " . "upload/" . $_FILES["pictures"]["name"][$key] . "<br><br>";
 			echo "Type: " . $type . "<br>";
 			echo "Size: " . round($_FILES["pictures"]["size"][$key] / 1024 / 1024 , 2) . " MB<br><br>";
