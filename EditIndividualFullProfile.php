@@ -68,7 +68,7 @@
 </head>
 
 <body>
-<form action="UpdateIndividualFullProfile.php" method="POST">
+
 <?php
 $expertID = $_POST["ExpertID"];
 
@@ -106,6 +106,16 @@ while($row = sqlsrv_fetch_array($expertData)) {
 	$expertAddressLine3 = $row['ExpertAddress3'];
 ?>
 
+<form action="upload_photo_thumb.php" method="post" enctype="multipart/form-data">
+<span>Update Thumbnail(150 X 180): </span><input type="file" onchange="this.form.submit()" name="pictures[]" multiple>
+<input type="hidden" name="expertID" value="<?php echo $expertID;?>">
+</form>
+
+<form action="upload_photo_large.php" method="post" enctype="multipart/form-data">
+<span>Update Large Photo (550 X 367): </span><input type="file" onchange="this.form.submit()" name="pictures[]" multiple>
+</form>
+
+<form action="UpdateIndividualFullProfile.php" method="POST">
 	 <input type="hidden" name="ExpertID" value=<?php echo $expertID;?> />
 
 	 <p> Prefix: </p> <input type="text" name="ExpertPrefix" value="<?php echo htmlentities($expertPrefix); ?>"/> 
@@ -267,16 +277,6 @@ while($row = sqlsrv_fetch_array($expertData)) {
 sqlsrv_close($connection);
 ?>
 </form>
-
-
-<form action="upload_photo_thumb.php" method="post" enctype="multipart/form-data">
-<span>Update Thumbnail(150 X 180): </span><input type="file" onchange="this.form.submit()" name="pictures[]" multiple>
-</form>
-
-<form action="upload_photo_large.php" method="post" enctype="multipart/form-data">
-<span>Update Large Photo (550 X 367): </span><input type="file" onchange="this.form.submit()" name="pictures[]" multiple>
-</form>
-
 
 <p><a href="IndividualFullProfile.php?expert_id=<?php echo $expertID;?>">Back to Profile Page</a></p>
 </body>
