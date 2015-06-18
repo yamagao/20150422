@@ -61,7 +61,8 @@ if($_GET["expertise"] != ""){
 			echo '<br><br>';
 			
 			//$photoQuery = sqlsrv_query($connection, "SELECT PhotoURL FROM Photo WHERE ExpertID = " . $expertID);
-			$filename = 'images/experts/thumbnail/' . $row2['FirstName'] . '-' . $row2['LastName'] . '.jpg';
+			//$filename = 'images/experts/thumbnail/' . $row2['FirstName'] . '-' . $row2['LastName'] . '.jpg';
+			$filename = 'images/experts/thumbnail/' . $expertID . '.jpg';
 			if(file_exists($filename)){
 				echo '<a href="IndividualFullProfile.php?expert_id='.$expertID.'"><img src="' . $filename . '" alt="'. $row2['FirstName'] . ' ' . $row2['LastName'] .'" title="'. $row2['FirstName'] . ' ' . $row2['LastName'] .'" height="180" width="150"></a><br>';
 			}
