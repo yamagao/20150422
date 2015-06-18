@@ -65,14 +65,23 @@ require_once 'DatabaseConnection.php';
 //$photoQuery = sqlsrv_query($connection, "SELECT PhotoURL FROM Photo WHERE ExpertID = " . $expertID);
 $firstNameList = sqlsrv_query( $connection, "SELECT LastName, FirstName FROM ExpertBiodata WHERE ExpertID = " . $expertID);
 if($row1 = sqlsrv_fetch_array($firstNameList)){
-	$filename = 'images/experts/large/' . $row1['FirstName'] . '-' . $row1['LastName'] . '.jpg';
+	//$filename = 'images/experts/large/' . $row1['FirstName'] . '-' . $row1['LastName'] . '.jpg';
+	$filename = 'images/experts/large/' . $expertID . '.jpg';
 	if(file_exists($filename)){
 		echo '<img src="' . $filename . '" alt="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" title="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'"><br>';
 	}
 	else{
 		echo '<img src="images/experts/large/placeholder.jpg"><br>';
 	}
-	$filename = 'images/experts/thumbnail/' . $row1['FirstName'] . '-' . $row1['LastName'] . '.jpg';
+	?>
+	<form action="upload_photo_thumb.php" method="post" enctype="multipart/form-data">
+	<span>Update Large Photo (550 X 367): </span><input type="file" onchange="this.form.submit()" name="pictures[]" multiple>
+	<input type="hidden" name="dir" value="large/">
+	<input type="hidden" name="expertID" value="<?php echo $expertID;?>">
+	</form>
+	<?php
+	//$filename = 'images/experts/thumbnail/' . $row1['FirstName'] . '-' . $row1['LastName'] . '.jpg';
+	$filename = 'images/experts/thumbnail/' . $expertID . '.jpg';
 	if(file_exists($filename)){
 		echo '<img src="' . $filename . '" alt="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" title="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'"><br>';
 	}
@@ -84,6 +93,7 @@ if($row1 = sqlsrv_fetch_array($firstNameList)){
 
 <form action="upload_photo_thumb.php" method="post" enctype="multipart/form-data">
 <span>Update Thumbnail(150 X 180): </span><input type="file" onchange="this.form.submit()" name="pictures[]" multiple>
+<input type="hidden" name="dir" value="thumbnail/">
 <input type="hidden" name="expertID" value="<?php echo $expertID;?>">
 </form>
 
