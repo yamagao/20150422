@@ -1,89 +1,113 @@
-<!doctype html>
-<html class="no-js" lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>IFAS EXPERTS Database</title>
-<!--Metadata-->
-<?php include 'include_meta.shtml'; ?>
-<!--End Metadata-->
-<!--Styles-->
-<link rel="stylesheet" href="css/foundation.css" />
-<link rel="stylesheet" href="css/override-main.css" />
-<link rel="stylesheet" href="css/single-menu-tabs.css" />
-<link rel='stylesheet' id='font-awesome-css'  href='css/font-awesome-4.2.0/css/font-awesome.min.css' type='text/css' media='all' />
-<!--Styles-->
-<!--Scripts-->
-<script src="js/vendor/modernizr.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
-<!-- jQuery -->
-<script type="text/javascript" charset="utf8" src="jquery-1.10.2.min.js"></script>
- <!--End Scripts-->
- <!--Analytics-->
-<?php include 'include_analytics.shtml'; ?>
-<!--End Analytics-->
-</head>
-<body>
-<!--=================================Top Banner Area====================-->
-<!--UF/IFAS logo and site title-->
-<div class="row">
-  <div id="site-ID">
-    <div id="logo" class="medium-3 columns"><img src="css/images/UF-IFAS-logo.png" width="148" height="48" alt="Logo placeholder"></div>
-    <div id="site-title"  class="medium-9 columns">
-      <h1><a href="test.php">IFAS Communications</a></h1>
-    </div>
-  </div>
-</div>
-<!--END UF/IFAS logo and site title--> 
-<!--==============================Top Navigation========================================-->
-<!--Top navigation dropdown-->
-<div class="row">
-     <?php include 'include_top_nav_drop_down.shtml'; ?> 
-</div>
-<!--END top navigation--> 
-<!--Social media icons-->
-<div class="row">
- <?php include 'include_social_media.shtml'; ?> 
- </div>
- <!--End Social Media icons-->
-<!--============================Main Content===============-->
-<!--============================Feature Boxes Area========================-->
-<div class="row">
-<div id="content" class="medium-12 columns">
-<!--Left column -->
-  <div id="content-left" class="medium-12 columns">
-  <h1>UF/IFAS Faculty Experts</h1>
+<!DOCTYPE HTML>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6, maximum-scale=2.0, user-scalable=yes" />
+    <title>News and Media Relations - IFAS Communications - University of Florida - Institute of Food and Agricultural Sciences</title>
+    <!--#include file="include_meta.shtml" -->
 
-<?php require_once 'searchBy.php'; ?>
-  </div>
-    </div>
-      </div>
-<!--========================================Footer  and Footer Resources Area========================-->
+    <link href="css/secondary.css" rel="stylesheet" type="text/css">
+    <!--Scripts-->
+    <script type="text/javascript">document.documentElement.className += " js";</script>
+    <!--#include file="include_scripts.shtml" -->
+    <script src="js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery.tabs.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/vendor/modernizr.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript">
+    $(document).ready(function(){
+        $(".tabs").accessibleTabs({
+            tabhead:'h2',
+            cssClassAvailable:true,
+            fx:"fadeIn"
+        });
+    });
 
-<!--Footer Resources-->
-<div id="footer-resources-wrapper" class="contain-to-grid">
-<div  class="row">
-   <?php include 'include_footer_resources.shtml'; ?> 
-</div></div>
-<!--END Footer Resources-->
-<!--Footer-->
-
-<div id="footer" class="contain-to-grid">
-<div class="row">
-  <?php include 'include_footer.shtml'; ?>
-  </div>
-  
-</div>
-<!--END Footer-->
-
-<!--Foundation Scripts-->
-<!-- <script src="js/vendor/jquery.js"></script> -->
-<script src="js/foundation.min.js"></script>
- 
-<script>
-      $(document).foundation();
     </script>
-    <!--END Foundation Scripts-->
+
+    <!--End Scripts-->
+    <!--Analytics-->
+    <!--#include file="include_analytics.shtml" -->
+    <!--End Analytics-->
+    </head>
+    <!--=======================================Web page Layout=========================================-->
+
+    <body>
+
+<!--=====================================Main Content Area==========================================-->
+<div class="container_12"> 
+      <!--===================================Navigation, Logo and IFAS searchbox=============================-->
+      
+      <div id="logo-search" class="grid_12"><a id="ifas-logo"  title="Institute of Food and Agricultural Sciences, University of Florida" href="http://ifas.ufl.edu/">Institute of Food and Agricultural Sciences</a> 
+    <!-- IFAS Communications text area-->
+    <div class="grid_4 omega push_8" id="ICS">
+           <?php include 'include_text.shtml'; ?><!--#include file="include_text.shtml" --> 
+        </div>
+    
+    <!--End IFAS Communications text area--> 
+    
+    <!--Top Navigation Area-->
+    <div class="grid_12 alpha"> 
+          <?php include 'include_top_nav_drop_down.shtml'; ?><!--#include file="include_top_nav_drop_down.shtml" --> 
+        </div>
+    <!--End Top Navigation Area--> 
+    
+  </div>
+      <!--End Navigation, Logo and Search Box-->
+      
+      <div class="clear"></div>
+      <!--=============================Main Content Area===========================================-->
+      <div id="content" class="grid_12">
+    <h1>UF/IFAS Faculty Experts</h1>
+<div class="clear"></div>
+    <!--Main Feature / Latest Case Study-->
+    <div id="main-feature" style="width:655px;">         
+      <?php require_once 'searchBy.php'; ?>
+          </div>
+    <!--END Main Feature--> 
+    <!--Services-->
+    <div class="facultyside">
+          <h3>News  and Media Relations</h3>
+          <p>UF/IFAS faculty members are available to provide expert opinion, comment, and analysis on a broad range of subjects.</p>
+          <p><strong>For news and media inquiries contact or trouble with locating an expert contact:</strong></p>
+          <p><a href="mailto:mickiea@ufl.edu">Mickie Anderson</a><br/>
+          <a href="news.shtml">News and Media Relations</a><br/> 
+          (352) 273-3566</p>
+</div>
+    <div class="facultyside">
+          <a href="http://ifas.ufl.edu/social-media.shtml"><img src="images/jointheconversation.jpg" width="272" height="129"></a>
+</div>
+	<div class="facultyside">
+      <h3>Follow UF/IFAS News</h3>
+          <p>
+          <a href="https://www.facebook.com/UFIFASNews"><img src="http://ics.ifas.ufl.edu/images/sm/facebook.png" width="60" height="60" alt="Facebook" style= padding-right:20px;></a><a href="https://twitter.com/uffoodandagnews"><img src="http://ics.ifas.ufl.edu/images/sm/twitter.png" width="60" height="60" alt="Twitter"></a></p>
+        </div>
+    <!--End Services-->
+    <div class="clear"></div>
+
+  </div>
+      <!--End Content Area-->
+     <div class="clear"></div>
+      <!--Footer-->
+ <div id="footer"> 
+    <!--#include file="include_footer.shtml" -->
+   Last Modified: <!-- #BeginDate format:Am1 -->February 2, 2015<!-- #EndDate --> 
+  </div>
+<!--End Footer--> 
+
+    </div>
+<div id="footer-resources-background"> </div>
+<div class="clear"></div>
+
+<div id="footer-wrapper">
+     
+    </div>
+ 
+<!--End Main Content Area--> 
+
+<!--PrettyPhoto Script--> 
+<!--#include file="include_prettyphoto.shtml" --> 
+<!--End PrettyPhoto Script--> 
+<!--End Web Page layout-->
 </body>
 </html>
