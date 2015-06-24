@@ -49,7 +49,7 @@ if($_GET["expertise"] != ""){
 		if (!$resultFlag)
 			$resultFlag = true;
 		$areaOfExpertiseID = $row1['AreaOfExpertiseID'];
-		echo '<h2>'.$row1['Name'].'</h2>';
+		echo '<h2 style="clear:both;">&nbsp;&nbsp;'.$row1['Name'].'</h2>';
 
 		$fetchExpertDataQuery ="SELECT ea.ExpertID, LastName, FirstName, Title, AddressLine1, AddressLine2 FROM Expert_AreaOfExpertise ea, ExpertBiodata b WHERE ea.ExpertID = b.ExpertID AND ea.AreaOfExpertiseID = " . $areaOfExpertiseID . " ORDER BY FirstName";
 		
@@ -69,18 +69,17 @@ if($_GET["expertise"] != ""){
 				echo '<img src="images/experts/thumbnail/placeholder.jpg" height="180" width="150">';
 			}
 			
-			echo '<h3><a href="IndividualFullProfile.php?expert_id='.$expertID.'">' . $row2['FirstName'] . ' ' . $row2['LastName'] . '</a></h3>';
+			echo '<h3><a href="IndividualFullProfile.php?expert_id='.$expertID.'">' . $row2['FirstName'] . ' ' . $row2['LastName'] . '</a></h3><p>';
 			if($row2['Title'] != "")
-				echo "<p>" . $row2['Title'];
-			echo "<br>" . $row2['AddressLine1'];
-			echo "<br>" . $row2['AddressLine2'];
+				echo $row2['Title'] . "<br>";
+			echo $row2['AddressLine1'] . "<br>";
+			echo $row2['AddressLine2'] . "<br>";
 			$contactQuery = sqlsrv_query( $connection, "SELECT ContactType, ContactDesc FROM ExpertBioData b, Contact c WHERE b.ExpertID = c.ExpertID AND b.expertID = " . $expertID);
 			while($row3 = sqlsrv_fetch_array($contactQuery)){
-				echo "<br>" . $row3['ContactType'] . " : " . $row3['ContactDesc'];
+				echo $row3['ContactType'] . " : " . $row3['ContactDesc'] . "<br>";
 			}
 			echo "</p></div>";
 		}
-		echo '<br><br><br>';
 	}
 	if(!$resultFlag)
 		echo "<br>No result under this category currently.";
