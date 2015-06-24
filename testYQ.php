@@ -90,7 +90,7 @@
      <div class="clear"></div>
       <!--Footer-->
  <div id="footer"> 
-    <!--#include file="include_footer.shtml" -->
+    <?php include 'include_footer.shtml'; ?><!--#include file="include_footer.shtml" -->
    Last Modified: <!-- #BeginDate format:Am1 -->February 2, 2015<!-- #EndDate --> 
   </div>
 <!--End Footer--> 
