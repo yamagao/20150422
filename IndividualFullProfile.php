@@ -60,7 +60,7 @@ $expertID = $_GET["expert_id"];
 
 <h1>UF/IFAS Faculty Experts</h1>
 <?php
-$logIn = true;
+$write = false;
 require_once 'DatabaseConnection.php';
 
 //$photoQuery = sqlsrv_query($connection, "SELECT PhotoURL FROM Photo WHERE ExpertID = " . $expertID);
@@ -68,28 +68,19 @@ $firstNameList = sqlsrv_query( $connection, "SELECT LastName, FirstName FROM Exp
 if($row1 = sqlsrv_fetch_array($firstNameList)){
 	//$filename = 'images/experts/large/' . $row1['FirstName'] . '-' . $row1['LastName'] . '.jpg';
 	$filename = 'images/experts/large/' . $expertID . '.jpg';
-	if($logIn == false){
-		if(file_exists($filename)){
-			echo '<img src="' . $filename . '" alt="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" title="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" height="367" width="550"><br>';
-		}
-		else{
-			echo '<img src="images/experts/large/placeholder.jpg"><br>';
-		}
+	if(file_exists($filename)){
+		echo '<img src="' . $filename . '" alt="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" title="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" height="367" width="550"><br>';
 	}
 	else{
+		echo '<img src="images/experts/large/placeholder.jpg"><br>';
+	}
+	if($write == true){
 	?>
 	<form action="upload_photo.php" method="post" enctype="multipart/form-data">
-	<input type="file" id="my_file" style="display: none;" onchange="this.form.submit()" name="pictures[]" multiple>
-	<input type="image" src="<?php echo $filename;?>" title="Update Large Photo (550 X 367 Maximum Size: 350 KB)" height="367" width="550"/>
+	<span>Update Large Photo (550 X 367 Maximum Size: 350 KB): </span><input type="file" onchange="this.form.submit()" name="pictures[]" multiple>
 	<input type="hidden" name="dir" value="large/">
 	<input type="hidden" name="expertID" value="<?php echo $expertID;?>">
 	</form>
-	<script>
-	$("input[type='image']").click(function() {
-		$("input[id='my_file']").click();
-		return false;
-	});
-	</script>
 	<?php
 	}
 	//$filename = 'images/experts/thumbnail/' . $row1['FirstName'] . '-' . $row1['LastName'] . '.jpg';
@@ -101,6 +92,7 @@ if($row1 = sqlsrv_fetch_array($firstNameList)){
 		echo '<img src="images/experts/thumbnail/placeholder.jpg"><br>';
 	}
 }
+if($write == true){
 ?>
 
 <form action="upload_photo.php" method="post" enctype="multipart/form-data">
@@ -110,6 +102,7 @@ if($row1 = sqlsrv_fetch_array($firstNameList)){
 </form>
 
 <?php
+}
 //Query to fetch Expert Bio data
 $fetchExpertDataQuery = 'SELECT distinct Prefix AS ExpertPrefix, FirstName AS ExpertFirstName, MiddleName AS ExpertMiddleName, LastName AS ExpertLastName, Suffix AS ExpertSuffix, Degree AS ExpertDegree, Title AS ExpertTitle, ProfileDesc AS ExpertProfileDesc, AddressLine1 AS ExpertAddress1, AddressLine2 AS ExpertAddress2, AddressLine3 AS ExpertAddress3 FROM ExpertBioData WHERE ExpertID='.$expertID;
 
