@@ -60,6 +60,7 @@ $expertID = $_GET["expert_id"];
 
 <h1>UF/IFAS Faculty Experts</h1>
 <?php
+$logIn = true;
 require_once 'DatabaseConnection.php';
 
 //$photoQuery = sqlsrv_query($connection, "SELECT PhotoURL FROM Photo WHERE ExpertID = " . $expertID);
@@ -67,19 +68,30 @@ $firstNameList = sqlsrv_query( $connection, "SELECT LastName, FirstName FROM Exp
 if($row1 = sqlsrv_fetch_array($firstNameList)){
 	//$filename = 'images/experts/large/' . $row1['FirstName'] . '-' . $row1['LastName'] . '.jpg';
 	$filename = 'images/experts/large/' . $expertID . '.jpg';
-	if(file_exists($filename)){
-		echo '<img src="' . $filename . '" alt="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" title="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" height="367" width="550"><br>';
+	if($logIn == false){
+		if(file_exists($filename)){
+			echo '<img src="' . $filename . '" alt="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" title="'. $row1['FirstName'] . ' ' . $row1['LastName'] .'" height="367" width="550"><br>';
+		}
+		else{
+			echo '<img src="images/experts/large/placeholder.jpg"><br>';
+		}
 	}
 	else{
-		echo '<img src="images/experts/large/placeholder.jpg"><br>';
-	}
 	?>
 	<form action="upload_photo.php" method="post" enctype="multipart/form-data">
-	<span>Update Large Photo (550 X 367 Maximum Size: 350 KB): </span><input type="file" onchange="this.form.submit()" name="pictures[]" multiple>
+	<input type="file" id="my_file" style="display: none;" onchange="this.form.submit()" name="pictures[]" multiple>
+	<input type="image" src="<?php echo $filename;?>" title="Update Large Photo (550 X 367 Maximum Size: 350 KB)" height="367" width="550"/>
 	<input type="hidden" name="dir" value="large/">
 	<input type="hidden" name="expertID" value="<?php echo $expertID;?>">
 	</form>
+	<script>
+	$("input[type='image']").click(function() {
+		$("input[id='my_file']").click();
+		return false;
+	});
+	</script>
 	<?php
+	}
 	//$filename = 'images/experts/thumbnail/' . $row1['FirstName'] . '-' . $row1['LastName'] . '.jpg';
 	$filename = 'images/experts/thumbnail/' . $expertID . '.jpg';
 	if(file_exists($filename)){
