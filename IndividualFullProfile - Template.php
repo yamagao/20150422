@@ -144,7 +144,7 @@ while($row = sqlsrv_fetch_array($expertData)) {
 	$newExpertFullName = $expertPrefix.' '.$expertFirstName.' '.$expertMiddleName.' '.$expertLastName.' '.$expertSuffix.' '.$expertDegree;
 		
 //	  echo ('<br><br> <img src="'.$expertPhoto.'"> <br>'.$newExpertFullName.'<br>'.$expertTitle.'<br><br>'.$expertProfileDesc.'<br><br>'.$expertAddress);
-	  echo '<h3>' . $expertTitle . '</h3><i class="fa fa-twitter-square fa-6"></i>';
+	  echo '<h3>' . $expertTitle . '</h3>';
 	  echo $expertProfileDesc;
 }
 echo '<h4>Areas of Expertise</h4><ul>';
@@ -170,8 +170,23 @@ echo '</li>';
 echo ('</ul>');
 echo '<h4>Follow</h4><ul>';
 while($row5 = sqlsrv_fetch_array($expertSocialMedia)) {		
-	$SocialMedia = $row5['SocialMediaDesc'];
-	echo '<li><a href="'. $SocialMedia . '"><i class="fa fa-twitter-square fa-6"></i></a></li>';	
+	$SocialMediaDesc = $row5['SocialMediaDesc'];
+	echo '<li><a href="'. $SocialMediaDesc . '">';
+	$SocialMediaType = $row5['SocialMediaType'];
+	switch ($SocialMediaType) {
+		case "LinkedIn":
+			echo '<i class="fa fa-linkedin-square fa-6"></i>';
+			break;
+		case "Twitter":
+			echo '<i class="fa fa-twitter-square fa-6"></i>';
+			break;
+		case "Facebook":
+			echo '<i class="fa fa-facebook-square fa-6"></i>';
+			break;
+		case "Google+":
+			echo '<i class="fa fa-google-plus-square fa-6"></i>';
+	}
+	echo '</a></li>';	
 }
 echo "</ul>";
 sqlsrv_close($connection);
