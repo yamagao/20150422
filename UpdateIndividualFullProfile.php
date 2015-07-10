@@ -45,9 +45,13 @@ for($i = 1; $i <= $contactLoopCount; $i++)
 	if($_POST['ExpertContactType'.$i] == null){
 		continue;
 	}
-	//$updateExpertContactQuery = 'UPDATE Contact SET ContactType=\''. $_POST['ExpertContactType'.$i] .'\', ContactDesc=\''. $_POST['ExpertContactDesc'.$i] .'\', ContactTimings=\''. $_POST['ExpertContactTimings'.$i] .'\' WHERE ExpertID='.$expertID.';';
-	$updateExpertContactQuery = "INSERT INTO Contact (ExpertID, ContactType, ContactDesc) VALUES ('" . $expertID . "', '" . $_POST['ExpertContactType'.$i] ."', '" . $_POST['ExpertContactDesc' . $i] ."');";
-	
+	if($_POST['ExpertContactType'.$i] == "Email" || $_POST['ExpertContactType'.$i] == "Phone"){
+		//$updateExpertContactQuery = 'UPDATE Contact SET ContactType=\''. $_POST['ExpertContactType'.$i] .'\', ContactDesc=\''. $_POST['ExpertContactDesc'.$i] .'\', ContactTimings=\''. $_POST['ExpertContactTimings'.$i] .'\' WHERE ExpertID='.$expertID.';';
+		$updateExpertContactQuery = "INSERT INTO Contact (ExpertID, ContactType, ContactDesc) VALUES ('" . $expertID . "', '" . $_POST['ExpertContactType'.$i] ."', '" . $_POST['ExpertContactDesc' . $i] ."');";
+	}
+	else{
+		$updateExpertContactQuery = "INSERT INTO SocialMedia (ExpertID, SocialMediaType, SocialMediaDesc) VALUES ('" . $expertID . "', '" . $_POST['ExpertContactType'.$i] ."', '" . $_POST['ExpertContactDesc' . $i] ."');";
+	}
 	$contactData = sqlsrv_query( $connection, $updateExpertContactQuery);
 	
 	if( !$contactData ) {
