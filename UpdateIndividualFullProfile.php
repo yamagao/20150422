@@ -38,6 +38,13 @@ if( !$contactData ) {
 	die( print_r( sqlsrv_errors(), true));
 }
 
+//Query to delete social media
+$updateExpertContactQuery = "DELETE FROM SocialMedia WHERE ExpertID = '" . $expertID . "';";
+$contactData = sqlsrv_query( $connection, $updateExpertContactQuery);
+if( !$contactData ) {
+	die( print_r( sqlsrv_errors(), true));
+}
+
 //Query to insert contact
 $contactLoopCount = $_POST["ContactLoopCount"];
 for($i = 1; $i <= $contactLoopCount; $i++)
