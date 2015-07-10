@@ -67,7 +67,7 @@
 <?php
 $expertID = $_GET["expert_id"];
 require_once 'DatabaseConnection.php';
-$write = true;
+$write = false;
 //$photoQuery = sqlsrv_query($connection, "SELECT PhotoURL FROM Photo WHERE ExpertID = " . $expertID);
 $firstNameList = sqlsrv_query( $connection, "SELECT LastName, FirstName, Degree FROM ExpertBiodata WHERE ExpertID = " . $expertID);
 if($row1 = sqlsrv_fetch_array($firstNameList)){
@@ -190,10 +190,13 @@ while($row5 = sqlsrv_fetch_array($expertSocialMedia)) {
 }
 echo "</ul>";
 sqlsrv_close($connection);
+if($write){
 ?>
 <form action="EditIndividualFullProfile.php" method="POST">
 <input type="hidden" name="ExpertID" value=<?php echo $expertID;?> />
 <input type="submit" name="editExpert" value="Edit"/>
+</form>
+<?php }?>
 </div>
 <!--new faculty div-->
 
