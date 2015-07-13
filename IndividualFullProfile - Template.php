@@ -147,8 +147,27 @@ while($row = sqlsrv_fetch_array($expertData)) {
 	$newExpertFullName = $expertPrefix.' '.$expertFirstName.' '.$expertMiddleName.' '.$expertLastName.' '.$expertSuffix.' '.$expertDegree;
 		
 //	  echo ('<br><br> <img src="'.$expertPhoto.'"> <br>'.$newExpertFullName.'<br>'.$expertTitle.'<br><br>'.$expertProfileDesc.'<br><br>'.$expertAddress);
-	  echo '<h3>' . $expertTitle . '</h3>';
-	  echo $expertProfileDesc;
+	echo '<h3>' . $expertTitle . '</h3>';
+	while($row5 = sqlsrv_fetch_array($expertSocialMedia)) {
+		$SocialMediaDesc = $row5['SocialMediaDesc'];
+		echo '<a href="'. $SocialMediaDesc . '">';
+		$SocialMediaType = $row5['SocialMediaType'];
+		switch ($SocialMediaType) {
+			case "LinkedIn":
+				echo '<i class="fa fa-linkedin-square" style="font-size: x-large;"></i>';
+				break;
+			case "Twitter":
+				echo '<i class="fa fa-twitter-square" style="font-size: x-large;"></i>';
+				break;
+			case "Facebook":
+				echo '<i class="fa fa-facebook-square" style="font-size: x-large;"></i>';
+				break;
+			case "Google+":
+				echo '<i class="fa fa-google-plus-square" style="font-size: x-large;"></i>';
+		}
+		echo '</a> ';	
+	}
+	echo $expertProfileDesc;
 }
 echo '<h4>Areas of Expertise</h4><ul>';
 while($row4 = sqlsrv_fetch_array($areaOfExpertise)) {		
@@ -171,33 +190,6 @@ if($expertAddressLine2 != null) echo '<br/>' . $expertAddressLine2;
 if($expertAddressLine3 != null) echo '<br/>' . $expertAddressLine3;
 echo '</li>';
 echo ('</ul>');
-$haveSocialMedia = false;
-while($row5 = sqlsrv_fetch_array($expertSocialMedia)) {
-	if($haveSocialMedia == false){
-		echo '<h4>Follow</h4><ul>';
-		$haveSocialMedia = true;
-	}
-	$SocialMediaDesc = $row5['SocialMediaDesc'];
-	echo '<li><a href="'. $SocialMediaDesc . '">';
-	$SocialMediaType = $row5['SocialMediaType'];
-	switch ($SocialMediaType) {
-		case "LinkedIn":
-			echo '<i class="fa fa-linkedin-square fa-6"></i>';
-			break;
-		case "Twitter":
-			echo '<i class="fa fa-twitter-square fa-6"></i>';
-			break;
-		case "Facebook":
-			echo '<i class="fa fa-facebook-square fa-6"></i>';
-			break;
-		case "Google+":
-			echo '<i class="fa fa-google-plus-square fa-6"></i>';
-	}
-	echo '</a></li>';	
-}
-if($haveSocialMedia == true){
-	echo "</ul>";
-}
 sqlsrv_close($connection);
 if($write){
 ?>
