@@ -69,9 +69,9 @@ if($_GET["expertise"] != ""){
 				echo '<img src="images/experts/thumbnail/placeholder.jpg" height="180" width="150">';
 			}
 			
-			echo '<h3><a href="IndividualFullProfile.php?expert_id='.$expertID.'">' . $row2['FirstName'] . ' ' . $row2['LastName'] . '</a></h3><p>';
+			echo '<h3><a href="IndividualFullProfile.php?expert_id='.$expertID.'">' . $row2['FirstName'] . ' ' . $row2['LastName'] . '</a></h3><p><strong>';
 			if($row2['Title'] != "")
-				echo $row2['Title'] . "<br>";
+				echo $row2['Title'] . "</strong><br>";
 			echo $row2['AddressLine1'] . "<br>";
 			echo $row2['AddressLine2'] . "<br>";
 			$contactQuery = sqlsrv_query( $connection, "SELECT ContactType, ContactDesc FROM ExpertBioData b, Contact c WHERE b.ExpertID = c.ExpertID AND b.expertID = " . $expertID);
@@ -107,7 +107,7 @@ if($_GET["lastName"] != ""){
 		
 		echo '<h3><a href="IndividualFullProfile.php?expert_id='.$expertID.'">'.$row1['LastName'].', ' . $row1['FirstName'] . '</a></h3>';
 		if($row1['Title'] != "")
-			echo "<p>" . $row1['Title'];
+			echo "<p><strong>" . $row1['Title'];
 /*		echo "<br>" . $row1['AddressLine1'];
 		echo "<br>" . $row1['AddressLine2'];
 		
@@ -115,7 +115,7 @@ if($_GET["lastName"] != ""){
 		while($row2 = sqlsrv_fetch_array($contactQuery)){
 			echo "<br>" . $row2['ContactType'] . " : " . $row2['ContactDesc'];
 		}
-*/		echo "</p>";		
+*/		echo "</strong></p>";		
 		$expertiseQuery = sqlsrv_query($connection, "SELECT Name FROM Expert_AreaOfExpertise ea, AreaOfExpertise a WHERE ea.AreaOfExpertiseID = a.AreaOfExpertiseID AND ea.ExpertID = " . $expertID);
 		echo "<ul>";
 //		if($rowFirst = sqlsrv_fetch_array($expertiseQuery))
@@ -152,7 +152,7 @@ if($_GET["firstName"] != ""){
 		
 		echo '<h3><a href="IndividualFullProfile.php?expert_id='.$expertID.'">' . $row1['FirstName'] . ' ' . $row1['LastName'] . '</a></h3>';
 		if($row1['Title'] != "")
-			echo "<p>" . $row1['Title'];
+			echo "<p><strong>" . $row1['Title'];
 /*		echo "<br>" . $row1['AddressLine1'];
 		echo "<br>" . $row1['AddressLine2'];
 		
@@ -160,7 +160,7 @@ if($_GET["firstName"] != ""){
 		while($row2 = sqlsrv_fetch_array($contactQuery)){
 			echo "<br>" . $row2['ContactType'] . " : " . $row2['ContactDesc'];
 		}
-*/		echo "</p>";
+*/		echo "</strong></p>";
 		$expertiseQuery = sqlsrv_query($connection, "SELECT Name FROM Expert_AreaOfExpertise ea, AreaOfExpertise a WHERE ea.AreaOfExpertiseID = a.AreaOfExpertiseID AND ea.ExpertID = " . $expertID);
 		echo "<ul>";
 //		if($rowFirst = sqlsrv_fetch_array($expertiseQuery))
