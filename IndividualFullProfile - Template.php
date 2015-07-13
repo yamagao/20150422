@@ -67,7 +67,10 @@
 <?php
 $expertID = $_GET["expert_id"];
 require_once 'DatabaseConnection.php';
-$write = false;
+$write = true;
+if($expertID == 67){
+	$write = false;
+}
 //$photoQuery = sqlsrv_query($connection, "SELECT PhotoURL FROM Photo WHERE ExpertID = " . $expertID);
 $firstNameList = sqlsrv_query( $connection, "SELECT LastName, FirstName, Degree FROM ExpertBiodata WHERE ExpertID = " . $expertID);
 if($row1 = sqlsrv_fetch_array($firstNameList)){
@@ -164,8 +167,8 @@ while($row2 = sqlsrv_fetch_array($expertContact)) {
 		echo '<li>' . $expertContactType . ': ' . $expertContactDesc . ' ' . $expertContactTimings . '</li>';
 }
 echo '<li>Address: ' . $expertAddressLine1;
-if($expertAddressLine2 != null) echo '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $expertAddressLine2;
-if($expertAddressLine3 != null) echo '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $expertAddressLine3;
+if($expertAddressLine2 != null) echo '<br/>' . $expertAddressLine2;
+if($expertAddressLine3 != null) echo '<br/>' . $expertAddressLine3;
 echo '</li>';
 echo ('</ul>');
 $haveSocialMedia = false;
