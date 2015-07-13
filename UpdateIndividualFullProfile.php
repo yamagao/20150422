@@ -9,17 +9,17 @@
 
 <?php
 $expertID = $_POST["ExpertID"];
-$expertPrefix = str_replace("'","''",$_POST["ExpertPrefix"]);
-$expertFirstName = str_replace("'","''",$_POST["ExpertFirstName"]);
-$expertMiddleName = str_replace("'","''",$_POST["ExpertMiddleName"]);
-$expertLastName = str_replace("'","''",$_POST["ExpertLastName"]);
-$expertSuffix = str_replace("'","''",$_POST["ExpertSuffix"]);
-$expertDegree = str_replace("'","''",$_POST["ExpertDegree"]);
-$expertTitle = str_replace("'","''",$_POST["ExpertTitle"]);
-$expertProfileDesc = str_replace("'","''",$_POST["ExpertProfileDesc"]);
-$expertAddressLine1 = str_replace("'","''",$_POST["ExpertAddressLine1"]);
-$expertAddressLine2 = str_replace("'","''",$_POST["ExpertAddressLine2"]);
-$expertAddressLine3 = str_replace("'","''",$_POST["ExpertAddressLine3"]);
+$expertPrefix = str_replace("'","''",strip_tags($_POST["ExpertPrefix"]));
+$expertFirstName = str_replace("'","''",strip_tags($_POST["ExpertFirstName"]));
+$expertMiddleName = str_replace("'","''",strip_tags($_POST["ExpertMiddleName"]));
+$expertLastName = str_replace("'","''",strip_tags($_POST["ExpertLastName"]));
+$expertSuffix = str_replace("'","''",strip_tags($_POST["ExpertSuffix"]));
+$expertDegree = str_replace("'","''",strip_tags($_POST["ExpertDegree"]));
+$expertTitle = str_replace("'","''",strip_tags($_POST["ExpertTitle"]));
+$expertProfileDesc = str_replace("'","''",strip_tags($_POST["ExpertProfileDesc"]));
+$expertAddressLine1 = str_replace("'","''",strip_tags($_POST["ExpertAddressLine1"]));
+$expertAddressLine2 = str_replace("'","''",strip_tags($_POST["ExpertAddressLine2"]));
+$expertAddressLine3 = str_replace("'","''",strip_tags($_POST["ExpertAddressLine3"]));
 
 require_once 'DatabaseConnection.php';
 
