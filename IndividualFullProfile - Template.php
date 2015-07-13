@@ -168,8 +168,12 @@ if($expertAddressLine2 != null) echo '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&
 if($expertAddressLine3 != null) echo '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $expertAddressLine3;
 echo '</li>';
 echo ('</ul>');
-echo '<h4>Follow</h4><ul>';
-while($row5 = sqlsrv_fetch_array($expertSocialMedia)) {		
+$haveSocialMedia = false;
+while($row5 = sqlsrv_fetch_array($expertSocialMedia)) {
+	if($haveSocialMedia == false){
+		echo '<h4>Follow</h4><ul>';
+		$haveSocialMedia = true;
+	}
 	$SocialMediaDesc = $row5['SocialMediaDesc'];
 	echo '<li><a href="'. $SocialMediaDesc . '">';
 	$SocialMediaType = $row5['SocialMediaType'];
@@ -188,7 +192,9 @@ while($row5 = sqlsrv_fetch_array($expertSocialMedia)) {
 	}
 	echo '</a></li>';	
 }
-echo "</ul>";
+if($haveSocialMedia == true){
+	echo "</ul>";
+}
 sqlsrv_close($connection);
 if($write){
 ?>
